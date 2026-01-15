@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zyta Dashboard (1 Page • White / Light Blue)</title>
+
+  <style>
+    :root{
+      --bg:#f2f8ff;
+      --card:#ffffff;
+      --muted:#5b6b82;
+      --text:#0b1220;
+      --border:#d7e6f8;
+      --soft:#eef6ff;
+      --accent:#2563eb;
+      --accent-2:#0ea5e9;
+      --accent-soft:#e8f4ff;
+      --shadow: 0 14px 32px rgba(11,18,32,.10);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      background:
+        radial-gradient(900px 420px at 18% 0%, rgba(14,165,233,.18), transparent 60%),
+        radial-gradient(900px 420px at 90% 18%, rgba(37,99,235,.14), transparent 55%),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 45%, var(--bg) 100%);
+      color:var(--text);
+    }
+    .wrap{
+      max-width:420px;
+      margin:0 auto;
+      padding:18px 16px 110px;
+    }
+
+    /* Topbar */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+    }
+    .iconbtn{
+      width:44px;height:44px;
+      border-radius:14px;
+      background:linear-gradient(180deg,#fff, var(--soft));
+      border:1px solid var(--border);
+      display:grid;
+      place-items:center;
+      box-shadow: 0 10px 24px rgba(11,18,32,.08);
+      user-select:none;
+      color:#274061;
+    }
+    .title{
+      text-align:center;
+      line-height:1.15;
+    }
+    .title .h{
+      font-weight:900;
+      font-size:16px;
+      letter-spacing:-.2px;
+    }
+    .title .s{
+      margin-top:3px;
+      font-size:11px;
+      color:var(--muted);
+    }
+    .avatar{
+      width:26px;height:26px;
+      border-radius:999px;
+      background:var(--soft);
+      border:1px solid var(--border);
+    }
+
+    /* Base */
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 28px rgba(11,18,32,.08);
+    }
+    .hide{display:none}
+    .muted{color:var(--muted)}
+    .section{ margin-top:12px; }
+
+    /* Home metrics */
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .metric{
+      padding:14px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .badge{
+      width:40px;height:40px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(180deg, #ffffff, var(--accent-soft));
+      border:1px solid rgba(14,165,233,.25);
+      color:var(--accent-2);
+      flex:0 0 auto;
+    }
+    .metric .lbl{ font-size:12px; color:var(--muted); }
+    .metric .val{ margin-top:4px; display:flex; gap:8px; align-items:baseline; flex-wrap:wrap; }
+    .metric .val b{ font-size:20px; letter-spacing:-.4px; }
+    .metric .val span{ font-size:11px; color:var(--muted); }
+
+    /* Charts box */
+    .chartBox{
+      margin-top:12px;
+      padding:12px;
+      border-radius:16px;
+      background:linear-gradient(180deg,#fff,var(--soft));
+      border:1px solid var(--border);
+    }
+    .chartTitle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:8px;
+    }
+    .chartTitle b{ font-size:13px; }
+    .pill{
+      padding:6px 10px;
+      border-radius:999px;
+      background: linear-gradient(180deg, #ffffff, var(--accent-soft));
+      border:1px solid rgba(14,165,233,.28);
+      color: var(--accent-2);
+      font-size:11px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    canvas{ width:100% !important; height:190px !important; }
+
+    /* Alerts cards */
+    .alertList{ display:grid; gap:10px; }
+    .alertItem{
+      padding:12px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:linear-gradient(180deg,#fff,var(--soft));
+    }
+    .alertIcon{
+      width:34px;height:34px;
+      border-radius:12px;
+      border:1px solid rgba(14,165,233,.25);
+      background:#fff;
+      display:grid;
+      place-items:center;
+      box-shadow: 0 10px 20px rgba(11,18,32,.06);
+      flex:0 0 auto;
+    }
+    .alertMain{ font-weight:900; font-size:13px; }
+    .alertSub{ margin-top:3px; font-size:12px; color:var(--muted); line-height:1.35; }
+    .alertMeta{ margin-top:6px; font-size:11px; color:#6b86a8; }
+
+    /* Segmented (member select) */
+    .seg{
+      margin-top:12px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg,#fff, var(--soft));
+      border-radius:16px;
+      padding:6px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:6px;
+    }
+    .seg button{
+      border:1px solid transparent;
+      background:transparent;
+      border-radius:12px;
+      padding:10px 8px;
+      font-size:12px;
+      color:var(--muted);
+      cursor:pointer;
+      font-weight:900;
+      user-select:none;
+    }
+    .seg button.active{
+      background: var(--accent-soft);
+      border-color: rgba(14,165,233,.28);
+      color: var(--accent-2);
+      box-shadow: 0 10px 24px rgba(14,165,233,.12);
+    }
+
+    /* Trend summary cards */
+    .trendGrid{ display:grid; gap:10px; margin-top:12px; }
+    .trendCard{
+      padding:12px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:linear-gradient(180deg,#fff, var(--soft));
+    }
+    .trendHead{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .trendHead b{ font-size:13px; }
+    .trendSmall{ margin-top:5px; font-size:12px; color:var(--muted); line-height:1.35; }
+    .tags{ margin-top:8px; display:flex; flex-wrap:wrap; gap:8px; }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: var(--accent-soft);
+      border:1px solid rgba(14,165,233,.28);
+      color: var(--accent-2);
+      font-size:11px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .tag b{ color: var(--accent); }
+
+    .encourage{
+      margin-top:12px;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(14,165,233,.28);
+      background: linear-gradient(180deg, #ffffff, rgba(232,244,255,.95));
+    }
+    .encourage b{ font-size:13px; }
+    .encourage p{ margin:8px 0 0; font-size:12px; color:#2b4769; line-height:1.45; }
+
+    /* Profile picker */
+    .profileGrid{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:12px; }
+    .personBtn{
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:linear-gradient(180deg,#fff,var(--soft));
+      padding:12px;
+      cursor:pointer;
+      text-align:left;
+      box-shadow: 0 10px 20px rgba(11,18,32,.06);
+    }
+    .personBtn.active{
+      outline: 2px solid rgba(14,165,233,.45);
+      border-color: rgba(14,165,233,.45);
+      background: linear-gradient(180deg, #fff, rgba(232,244,255,.95));
+    }
+    .personTop{ display:flex; align-items:center; gap:10px; }
+    .personAvatar{
+      width:40px;height:40px;border-radius:14px;
+      border:1px solid rgba(14,165,233,.25);
+      background:#fff;
+      display:grid;
+      place-items:center;
+      font-size:18px;
+    }
+    .personName{ font-weight:900; font-size:13px; }
+    .personRole{ margin-top:2px; font-size:11px; color:var(--muted); }
+    .personHint{ margin-top:8px; font-size:12px; color:#2b4769; }
+
+    /* Settings */
+    .settingsSection{ padding: 0 14px 12px; }
+    .settingsTitle{
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.2px;
+      color:#2b4769;
+      margin: 2px 2px 8px;
+      text-transform: uppercase;
+    }
+    .settingsList{
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      background:linear-gradient(180deg,#fff,var(--soft));
+      box-shadow: 0 10px 24px rgba(11,18,32,.06);
+    }
+    .settingsItem{
+      width:100%;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding:12px 12px;
+      border:0;
+      background:transparent;
+      text-align:left;
+      cursor:default; /* dummy only */
+    }
+    .settingsItem + .settingsItem{ border-top:1px solid rgba(215,230,248,.9); }
+    .settingsIcon{
+      width:34px; height:34px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:#fff;
+      border:1px solid rgba(215,230,248,.9);
+      box-shadow: 0 10px 22px rgba(11,18,32,.05);
+      font-size:16px;
+      flex:0 0 auto;
+    }
+    .settingsText{ flex:1; min-width:0; }
+    .settingsMain{ display:block; font-weight:900; font-size:13px; color:#0b1220; }
+    .settingsSub{ display:block; margin-top:2px; font-size:11px; color:var(--muted); }
+    .settingsArrow{ color:#6b86a8; font-size:18px; font-weight:900; }
+
+    /* Bottom nav */
+    .navwrap{
+      position:fixed;
+      left:0; right:0; bottom:0;
+      padding:0 16px 14px;
+      z-index:50;
+    }
+    .nav{
+      max-width:420px;
+      margin:0 auto;
+      background: rgba(255,255,255,.88);
+      border:1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding:8px;
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap:6px;
+    }
+    .nav button{
+      border:1px solid transparent;
+      background:transparent;
+      border-radius:14px;
+      padding:10px 6px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      color:var(--muted);
+      font-size:10px;
+      user-select:none;
+    }
+    .nav button.active{
+      background: var(--accent-soft);
+      border-color: rgba(14,165,233,.28);
+      color: var(--accent-2);
+      font-weight:900;
+    }
+    .ico{width:18px;height:18px;display:block}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="iconbtn" aria-hidden="true">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="title">
+        <div class="h" id="headerTitle">Zyta Dashboard</div>
+        <div class="s" id="headerSub">ภาพรวมสุขภาพวันนี้ • 9 Jan</div>
+      </div>
+
+      <div class="iconbtn" aria-hidden="true">
+        <div class="avatar"></div>
+      </div>
+    </div>
+
+    <!-- HOME -->
+    <div id="screen-home">
+      <div class="grid2">
+        <div class="card metric">
+          <div class="badge" aria-hidden="true">❤️</div>
+          <div>
+            <div class="lbl">Blood Pressure</div>
+            <div class="val"><b>120/80</b> <span>mmHg • 72 bpm</span></div>
+          </div>
+        </div>
+
+        <div class="card metric">
+          <div class="badge" aria-hidden="true">💧</div>
+          <div>
+            <div class="lbl">Blood Glucose</div>
+            <div class="val"><b>105</b> <span>mg/dL</span></div>
+          </div>
+        </div>
+
+        <div class="card metric">
+          <div class="badge" aria-hidden="true">🌡️</div>
+          <div>
+            <div class="lbl">Temperature</div>
+            <div class="val"><b>36.5°C</b> <span>today</span></div>
+          </div>
+        </div>
+
+        <div class="card metric">
+          <div class="badge" aria-hidden="true">📈</div>
+          <div>
+            <div class="lbl">SpO₂</div>
+            <div class="val"><b>98%</b> <span>normal</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graph on Home -->
+      <div class="card section" style="padding:14px;">
+        <div class="chartTitle">
+          <b>Today Trend</b>
+          <span class="pill" id="activeUserPill">ใช้งาน: พ่อ</span>
+        </div>
+        <div class="muted" style="font-size:12px; line-height:1.4;">
+          กราฟแสดงแนวโน้มสุขภาพวันนี้
+        </div>
+        <div class="chartBox">
+          <canvas id="homeTrendChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALERTS -->
+    <div id="screen-alerts" class="hide">
+      <div class="card" style="padding:14px;">
+        <b>Alerts</b>
+        <div class="muted" style="margin-top:6px;font-size:12px;">การแจ้งเตือนล่าสุด</div>
+
+        <div class="section alertList">
+          <div class="alertItem">
+            <div class="alertIcon">🔔</div>
+            <div>
+              <div class="alertMain">ความดันสูงกว่าปกติเล็กน้อย</div>
+              <div class="alertSub">แนะนำให้พัก 5–10 นาที แล้ววัดซ้ำอีกครั้ง</div>
+              <div class="alertMeta">วันนี้ 08:12 • พ่อ</div>
+            </div>
+          </div>
+
+          <div class="alertItem">
+            <div class="alertIcon">🌙</div>
+            <div>
+              <div class="alertMain">ถึงเวลาเตือนวัดค่าก่อนนอน</div>
+              <div class="alertSub">วัดความดัน/SpO₂ เพื่อเก็บข้อมูลให้ครบวัน</div>
+              <div class="alertMeta">เมื่อวาน 21:10 • แม่</div>
+            </div>
+          </div>
+
+          <div class="alertItem">
+            <div class="alertIcon">💧</div>
+            <div>
+              <div class="alertMain">น้ำตาลหลังอาหารสูงขึ้น</div>
+              <div class="alertSub">ลองลดหวานและเดินเบา ๆ หลังอาหาร 10–15 นาที</div>
+              <div class="alertMeta">เมื่อวาน 13:45 • ยาย</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRENDS -->
+    <div id="screen-trends" class="hide">
+      <div class="card" style="padding:14px;">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
+          <div>
+            <b>Trends</b>
+            <div class="muted" style="margin-top:6px;font-size:12px;">เลือกสมาชิกเพื่อดูแนวโน้มย้อนหลัง 30 วัน</div>
+          </div>
+          <span class="pill">Last 30 days</span>
+        </div>
+
+        <div class="seg" id="trendMemberSeg">
+          <button class="active" data-member="dad">พ่อ</button>
+          <button data-member="mom">แม่</button>
+          <button data-member="grandma">ยาย</button>
+        </div>
+
+        <div class="chartBox">
+          <div class="chartTitle" style="margin-bottom:8px;">
+            <b id="trendChartTitle">Overall Health Score — พ่อ</b>
+            <span class="pill" id="trendImprovePill">ดีขึ้น +12%</span>
+          </div>
+          <canvas id="trendChart"></canvas>
+        </div>
+
+        <div class="trendGrid" id="trendCards">
+          <!-- injected -->
+        </div>
+
+        <div class="encourage">
+          <b>ข้อความจากระบบ 💙</b>
+          <p id="trendEncourage">
+            ทุกคนทำได้ดีมาก! สม่ำเสมออีกนิด ผลลัพธ์จะยิ่งชัดขึ้นนะคะ 😊
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE (✅ กดเลือกบุคคลที่ใช้งานได้) -->
+    <div id="screen-profile" class="hide">
+      <div class="card" style="padding:14px;">
+        <b>Profile</b>
+        <div class="muted" style="margin-top:6px;font-size:12px;">เลือกผู้ใช้งานในปัจจุบัน</div>
+
+        <div class="profileGrid" id="profileGrid">
+          <button class="personBtn active" data-member="dad" type="button">
+            <div class="personTop">
+              <div class="personAvatar">👨</div>
+              <div>
+                <div class="personName">พ่อ</div>
+                <div class="personRole">Primary user</div>
+              </div>
+            </div>
+            <div class="personHint">แนวโน้มดีขึ้นต่อเนื่อง ✅</div>
+          </button>
+
+          <button class="personBtn" data-member="mom" type="button">
+            <div class="personTop">
+              <div class="personAvatar">👩</div>
+              <div>
+                <div class="personName">แม่</div>
+                <div class="personRole">Family member</div>
+              </div>
+            </div>
+            <div class="personHint">ควบคุมได้ดีขึ้น ✅</div>
+          </button>
+
+          <button class="personBtn" data-member="grandma" type="button">
+            <div class="personTop">
+              <div class="personAvatar">👵</div>
+              <div>
+                <div class="personName">ยาย</div>
+                <div class="personRole">Family member</div>
+              </div>
+            </div>
+            <div class="personHint">แข็งแรงขึ้นเรื่อย ๆ ✅</div>
+          </button>
+
+          <button class="personBtn" type="button" aria-disabled="true">
+            <div class="personTop">
+              <div class="personAvatar">＋</div>
+              <div>
+                <div class="personName">Add Member</div>
+                <div class="personRole"></div>
+              </div>
+            </div>
+            <div class="personHint">เพิ่มสมาชิก</div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS (dummy list) -->
+    <div id="screen-settings" class="hide">
+      <div class="card">
+        <div style="padding:14px; display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
+          <div>
+            <b>Settings</b>
+            <div class="muted" style="margin-top:4px; font-size:12px;">การตั้งค่า</div>
+          </div>
+          <span class="pill">ตั้งค่า</span>
+        </div>
+
+        <div class="settingsSection">
+          <div class="settingsTitle">Device</div>
+          <div class="settingsList">
+            <div class="settingsItem">
+              <span class="settingsIcon">🔗</span>
+              <span class="settingsText">
+                <span class="settingsMain">Connected Devices</span>
+                <span class="settingsSub">จัดการอุปกรณ์ที่เชื่อมต่อ</span>
+              </span>
+              <span class="settingsArrow">›</span>
+            </div>
+            <div class="settingsItem">
+              <span class="settingsIcon">⟳</span>
+              <span class="settingsText">
+                <span class="settingsMain">Sync Settings</span>
+                <span class="settingsSub">ความถี่การซิงค์ / Wi-Fi only</span>
+              </span>
+              <span class="settingsArrow">›</span>
+            </div>
+            <div class="settingsItem">
+              <span class="settingsIcon">⬆️</span>
+              <span class="settingsText">
+                <span class="settingsMain">Firmware Update</span>
+                <span class="settingsSub">ตรวจสอบอัปเดตอุปกรณ์</span>
+              </span>
+              <span class="settingsArrow">›</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="settingsSection">
+          <div class="settingsTitle">Family & Profiles</div>
+          <div class="settingsList">
+            <div class="settingsItem">
+              <span class="settingsIcon">👨‍👩‍👧</span>
+              <span class="settingsText">
+                <span class="settingsMain">Family Members</span>
+                <span class="settingsSub">พ่อ / แม่ / ยาย</span>
+              </span>
+              <span class="settingsArrow">›</span>
+            </div>
+            <div class="settingsItem">
+              <span class="settingsIcon">🎯</span>
+              <span class="settingsText">
+                <span class="settingsMain">Goals</span>
+                <span class="settingsSub">ตั้งเป้าหมายรายวัน/รายสัปดาห์</span>
+              </span>
+              <span class="settingsArrow">›</span>
+            </div>
+            <div class="settingsItem">
+              <span class="settingsIcon">⏰</span>
+              <span class="settingsText">
+                <span class="settingsMain">Reminders</span>
+                <span class="settingsSub">เตือนวัดค่า/ทานยา</span>
+              </span>
+              <span class="settingsArrow">›</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="settingsSection" style="padding-bottom:14px;">
+          <div class="settingsTitle">Preferences & Support</div>
+          <div class="settingsList">
+            <div class="settingsItem">
+              <span class="settingsIcon">📏</span>
+              <span class="settingsText">
+                <span class="settingsMain">Units</span>
+                <span class="settingsSub">mmHg / mg/dL / °C</span>
+              </span>
+              <span class="settingsArrow">›</span>
+            </div>
+            <div class="settingsItem">
+              <span class="settingsIcon">🌐</span>
+              <span class="settingsText">
+                <span class="settingsMain">Language</span>
+                <span class="settingsSub">TH / EN</span>
+              </span>
+              <span class="settingsArrow">›</span>
+            </div>
+            <div class="settingsItem">
+              <span class="settingsIcon">🔒</span>
+              <span class="settingsText">
+                <span class="settingsMain">Privacy</span>
+                <span class="settingsSub">การยินยอม / การแชร์ข้อมูล</span>
+              </span>
+              <span class="settingsArrow">›</span>
+            </div>
+            <div class="settingsItem">
+              <span class="settingsIcon">🆘</span>
+              <span class="settingsText">
+                <span class="settingsMain">Help Center</span>
+                <span class="settingsSub">คู่มือใช้งาน & FAQ</span>
+              </span>
+              <span class="settingsArrow">›</span>
+            </div>
+            <div class="settingsItem">
+              <span class="settingsIcon">ℹ️</span>
+              <span class="settingsText">
+                <span class="settingsMain">About</span>
+                <span class="settingsSub">เวอร์ชันแอป / เงื่อนไขการใช้งาน</span>
+              </span>
+              <span class="settingsArrow">›</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom nav -->
+  <div class="navwrap">
+    <div class="nav" id="nav">
+      <button class="active" data-screen="home">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Home
+      </button>
+      <button data-screen="alerts">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M13.73 21a2 2 0 01-3.46 0" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Alerts
+      </button>
+      <button data-screen="trends">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 19V5" stroke-linecap="round"/>
+          <path d="M8 19V11" stroke-linecap="round"/>
+          <path d="M12 19V7" stroke-linecap="round"/>
+          <path d="M16 19V13" stroke-linecap="round"/>
+          <path d="M20 19V9" stroke-linecap="round"/>
+        </svg>
+        Trends
+      </button>
+      <button data-screen="profile">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21a8 8 0 10-16 0" stroke-linecap="round"/>
+          <path d="M12 11a4 4 0 100-8 4 4 0 000 8z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Profile
+      </button>
+      <button data-screen="settings">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 15.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M19.4 15a7.9 7.9 0 00.1-2l2-1.2-2-3.4-2.3.7a8.4 8.4 0 00-1.7-1l-.3-2.4H10.8l-.3 2.4a8.4 8.4 0 00-1.7 1l-2.3-.7-2 3.4 2 1.2a7.9 7.9 0 00.1 2l-2 1.2 2 3.4 2.3-.7c.5.4 1.1.7 1.7 1l.3 2.4h4.4l.3-2.4c.6-.3 1.2-.6 1.7-1l2.3.7 2-3.4-2-1.2z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Settings
+      </button>
+    </div>
+  </div>
+
+  <!-- Chart.js (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <script>
+    // --- Screens nav
+    const headerTitle = document.getElementById("headerTitle");
+    const headerSub = document.getElementById("headerSub");
+    const nav = document.getElementById("nav");
+
+    const screens = {
+      home: document.getElementById("screen-home"),
+      alerts: document.getElementById("screen-alerts"),
+      trends: document.getElementById("screen-trends"),
+      profile: document.getElementById("screen-profile"),
+      settings: document.getElementById("screen-settings"),
+    };
+
+    function showScreen(key){
+      Object.entries(screens).forEach(([k,el]) => el.classList.toggle("hide", k !== key));
+      headerTitle.textContent =
+        key === "home" ? "Zyta Dashboard" :
+        key === "alerts" ? "Alerts" :
+        key === "trends" ? "Trends" :
+        key === "profile" ? "Profile" : "Settings";
+      headerSub.textContent =
+        key === "home" ? "ภาพรวมวันนี้ • 9 Jan" :
+        key === "alerts" ? "แจ้งเตือนล่าสุด" :
+        key === "trends" ? "แนวโน้มย้อนหลัง" :
+        key === "profile" ? "เลือกผู้ใช้งาน" : "ตั้งค่า";
+      [...nav.querySelectorAll("button")].forEach(b => b.classList.toggle("active", b.dataset.screen === key));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    nav.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-screen]");
+      if(!btn) return;
+      showScreen(btn.dataset.screen);
+    });
+
+    // --- Family data (dummy but consistent)
+    const family = {
+      dad: {
+        name: "พ่อ",
+        improvePct: 12,
+        series: [62, 64, 66, 67, 69, 71, 74],
+        summary: {
+          bp: 12, glucose: 9, spo2: 3,
+          advice: "โฟกัสการพักผ่อน + เดินเบา ๆ หลังอาหาร 10–15 นาที"
+        },
+        encourage: "สุดยอดเลยพ่อ! ทำต่อเนื่องอีกนิดจะเห็นผลชัดขึ้นนะคะ 💪"
+      },
+      mom: {
+        name: "แม่",
+        improvePct: 10,
+        series: [60, 62, 63, 65, 67, 70, 73],
+        summary: {
+          bp: 10, glucose: 11, spo2: 2,
+          advice: "คุมหวานได้ดีมาก เพิ่มดื่มน้ำ + นอนให้ครบ 7–8 ชม."
+        },
+        encourage: "แม่ทำได้ดีมากค่ะ 💙 สม่ำเสมอแบบนี้ไปเรื่อย ๆ นะคะ"
+      },
+      grandma: {
+        name: "ยาย",
+        improvePct: 8,
+        series: [58, 59, 61, 62, 64, 66, 69],
+        summary: {
+          bp: 8, glucose: 7, spo2: 4,
+          advice: "ทานยาตามเวลา + ขยับตัวเบา ๆ ทุกวันช่วยได้มาก"
+        },
+        encourage: "ยายเก่งมากเลยค่ะ 🌷 ค่อย ๆ ดีขึ้นแบบนี้คือดีที่สุดแล้วนะคะ"
+      }
+    };
+
+    // --- Active user (selected from Profile)
+    let activeMember = "dad";
+    const activeUserPill = document.getElementById("activeUserPill");
+
+    function setActiveMember(key){
+      if(!family[key]) return;
+      activeMember = key;
+      activeUserPill.textContent = "ใช้งาน: " + family[key].name;
+      // update Home chart
+      homeTrendChart.data.datasets[0].data = family[key].series;
+      homeTrendChart.update();
+    }
+
+    // --- Home chart
+    const homeTrendChart = new Chart(document.getElementById("homeTrendChart"), {
+      type: "line",
+      data: {
+        labels: ["08:00","10:00","12:00","14:00","16:00","18:00","20:00"],
+        datasets: [{
+          label: "Health Score",
+          data: family[activeMember].series,
+          borderColor: "#0ea5e9",
+          backgroundColor: "rgba(14,165,233,0.14)",
+          borderWidth: 2,
+          tension: 0.35,
+          pointRadius: 2,
+          pointBackgroundColor: "#2563eb",
+          fill: true,
+        }]
+      },
+      options: {
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins: { legend: { display:false } },
+        scales: {
+          x: { grid:{ display:false }, ticks:{ color:"#5b6b82", font:{ size:10 } } },
+          y: { grid:{ color:"rgba(215,230,248,.9)" }, ticks:{ color:"#86a0c2", font:{ size:10 } } }
+        }
+      }
+    });
+
+    // --- Trends interactions
+    const trendMemberSeg = document.getElementById("trendMemberSeg");
+    const trendChartTitle = document.getElementById("trendChartTitle");
+    const trendImprovePill = document.getElementById("trendImprovePill");
+    const trendCards = document.getElementById("trendCards");
+    const trendEncourage = document.getElementById("trendEncourage");
+
+    const trendChart = new Chart(document.getElementById("trendChart"), {
+      type: "line",
+      data: {
+        labels: ["W1","W2","W3","W4","W5","W6","W7"],
+        datasets: [{
+          label: "Overall Health Score",
+          data: family.dad.series,
+          borderColor: "#2563eb",
+          backgroundColor: "rgba(37,99,235,0.12)",
+          borderWidth: 2,
+          tension: 0.35,
+          pointRadius: 2,
+          pointBackgroundColor: "#0ea5e9",
+          fill: true,
+        }]
+      },
+      options: {
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins: { legend: { display:false } },
+        scales: {
+          x: { grid:{ display:false }, ticks:{ color:"#5b6b82", font:{ size:10 } } },
+          y: { grid:{ color:"rgba(215,230,248,.9)" }, ticks:{ color:"#86a0c2", font:{ size:10 } } }
+        }
+      }
+    });
+
+    function renderTrendCards(memberKey){
+      const d = family[memberKey];
+      const s = d.summary;
+
+      trendChartTitle.textContent = `Overall Health Score — ${d.name}`;
+      trendImprovePill.textContent = `ดีขึ้น +${d.improvePct}%`;
+      trendEncourage.textContent = d.encourage;
+
+      trendCards.innerHTML = `
+        <div class="trendCard">
+          <div class="trendHead">
+            <b>กรอบแนวโน้ม</b>
+            <span class="pill">Improving</span>
+          </div>
+          <div class="trendSmall">
+            ภาพรวม 30 วันล่าสุดของ <b>${d.name}</b> ดีขึ้นอย่างต่อเนื่อง
+            เหมาะกับการ “ทำต่อ” ในรูปแบบเดิม
+          </div>
+          <div class="tags">
+            <span class="tag">BP ดีขึ้น <b>${s.bp}%</b></span>
+            <span class="tag">Glucose ดีขึ้น <b>${s.glucose}%</b></span>
+            <span class="tag">SpO₂ ดีขึ้น <b>${s.spo2}%</b></span>
+          </div>
+        </div>
+
+        <div class="trendCard">
+          <div class="trendHead">
+            <b>คำแนะนำจากระบบ</b>
+            <span class="pill">Next step</span>
+          </div>
+          <div class="trendSmall">${s.advice}</div>
+          <div class="trendSmall" style="margin-top:8px;">
+            โฟกัส 1 อย่าง/สัปดาห์ จะทำให้ผลลัพธ์ “ชัด” และ “ยั่งยืน” มากขึ้น
+          </div>
+        </div>
+      `;
+    }
+
+    function setTrendMember(memberKey){
+      if(!family[memberKey]) return;
+
+      [...trendMemberSeg.querySelectorAll("button")].forEach(b =>
+        b.classList.toggle("active", b.dataset.member === memberKey)
+      );
+
+      trendChart.data.datasets[0].data = family[memberKey].series;
+      trendChart.update();
+      renderTrendCards(memberKey);
+    }
+
+    trendMemberSeg.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-member]");
+      if(!btn) return;
+      setTrendMember(btn.dataset.member);
+    });
+
+    // --- Profile: select active user
+    const profileGrid = document.getElementById("profileGrid");
+    profileGrid.addEventListener("click", (e) => {
+      const btn = e.target.closest(".personBtn[data-member]");
+      if(!btn) return;
+
+      const key = btn.dataset.member;
+      [...profileGrid.querySelectorAll(".personBtn[data-member]")].forEach(b =>
+        b.classList.toggle("active", b.dataset.member === key)
+      );
+
+      setActiveMember(key);
+    });
+
+    // init
+    setActiveMember(activeMember);
+    setTrendMember("dad");
+  </script>
+</body>
+</html>
