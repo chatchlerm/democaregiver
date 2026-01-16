@@ -789,7 +789,7 @@
               <input class="input" id="passwordInput" type="password" placeholder="เช่น test" autocomplete="current-password" />
             </div>
             <button class="authPrimary" id="emailLoginBtn" type="button">เข้าสู่ระบบด้วยอีเมล</button>
-            <div class="authNote">* เดโมล็อกอิน: ใส่ Email = <b>test</b> และ Password = <b>test</b> เพื่อเข้าสู่หน้าเมนูหลังล็อกอิน</div>
+            <div class="authNote">*Demo Login: ใส่ Email = <b>test</b> และ Password = <b>test</b> เพื่อเข้าสู่หน้าเมนูหลังล็อกอิน</div>
           </div>
 
           <div class="authPane hide" id="authPaneRegister">
@@ -806,7 +806,7 @@
               <input class="input" type="password" placeholder="ตั้งรหัสผ่าน" autocomplete="new-password" />
             </div>
             <button class="authPrimary" id="registerBtn" type="button">สร้างบัญชีใหม่</button>
-            <div class="authNote">* เดโม UI: ปุ่มจะโชว์ alert แทนการสมัครจริง</div>
+            <div class="authNote">*Demo UI: ปุ่มจะโชว์ alert แทนการสมัครจริง</div>
           </div>
         </div>
 
@@ -972,6 +972,8 @@
         </div>
 
         <button class="primaryBtn" id="confirmTopupBtn" type="button" style="margin-top:12px;">ยืนยัน Top-up</button>
+        <div class="authNote">*Demo UI: จะเพิ่มยอดเงินใน Wallet และบันทึกประวัติให้ดู</div>
+
         <div class="txnList" id="txnList">
           <div class="txnItem">
             <div class="txnTop"><b>Top-up</b><span>ตัวอย่าง</span></div>
@@ -1425,7 +1427,7 @@
         return true;
       }
 
-      alert('Email/Password ไม่ถูกต้อง (เดโม: test / test)');
+      alert('Email/Password ไม่ถูกต้อง (Demo ID: test / test)');
       return false;
     }
 
