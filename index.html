@@ -386,8 +386,6 @@
 
     /* Packages */
     .packageWrap{ margin-top:12px; }
-    .packageHead{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
-    .packageHead b{ font-size:14px; }
     .packageGrid{ display:grid; gap:10px; margin-top:12px; }
     .packageBtn{
       width:100%;
@@ -425,6 +423,7 @@
       white-space:nowrap;
     }
     .packageChip b{ color: var(--accent); }
+
     .menuBtn{
       border:1px solid var(--border);
       border-radius:16px;
@@ -534,49 +533,78 @@
       line-height:1.2;
     }
 
-    /* Device */
-    .deviceList{ display:grid; gap:10px; margin-top:12px; }
-    .deviceItem{
-      padding:12px;
-      display:flex;
-      gap:12px;
-      align-items:center;
-      border:1px solid var(--border);
-      border-radius:16px;
-      background:linear-gradient(180deg,#fff,var(--soft));
-      box-shadow: 0 10px 20px rgba(11,18,32,.06);
+    /* Modal (pretty alert/confirm) */
+    .modal{ position:fixed; inset:0; z-index:999; display:grid; place-items:center; padding:18px; }
+    .modal.hide{ display:none; }
+    .modalOverlay{ position:absolute; inset:0; background: rgba(11,18,32,.35); backdrop-filter: blur(8px); }
+    .modalCard{
+      position:relative;
+      width:min(420px, 100%);
+      border-radius: 18px;
+      border:1px solid rgba(215,230,248,.95);
+      background: linear-gradient(180deg,#ffffff, rgba(242,248,255,.96));
+      box-shadow: 0 18px 40px rgba(11,18,32,.18);
+      overflow:hidden;
+      transform: translateY(8px);
+      animation: modalIn .18s ease-out forwards;
     }
-    .devicePic{
-      width:56px;height:56px;
-      border-radius:14px;
+    @keyframes modalIn{ to{ transform: translateY(0); } }
+
+    .modalHead{ padding:14px 14px 10px; display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+    .modalTitle{ display:flex; align-items:center; gap:10px; }
+    .modalIcon{
+      width:40px; height:40px; border-radius:14px;
+      display:grid; place-items:center;
       border:1px solid rgba(14,165,233,.25);
       background:#fff;
+      box-shadow: 0 10px 22px rgba(11,18,32,.05);
+      font-size:18px;
+      flex:0 0 auto;
+    }
+    .modalText b{ display:block; font-size:14px; letter-spacing:-.2px; }
+    .modalText span{ display:block; margin-top:3px; font-size:12px; color:var(--muted); line-height:1.45; white-space:pre-line; }
+
+    .modalClose{
+      width:40px;height:40px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg,#fff,var(--soft));
+      cursor:pointer;
       display:grid;
       place-items:center;
-      overflow:hidden;
-      flex:0 0 auto;
       color:#274061;
-      font-size:18px;
+      box-shadow: 0 10px 24px rgba(11,18,32,.08);
     }
-    .devicePic img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .deviceInfo{ flex:1; min-width:0; }
-    .deviceName{ font-weight:900; font-size:13px; }
-    .deviceMeta{ margin-top:2px; font-size:11px; color:var(--muted); }
-    .deviceStatus{ margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; }
-    .deviceChip{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:6px 10px;
-      border-radius:999px;
-      background: var(--accent-soft);
-      border:1px solid rgba(14,165,233,.28);
-      color: var(--accent-2);
-      font-size:11px;
+    .modalClose:active{ transform: translateY(1px); }
+
+    .modalBody{ padding:0 14px 14px; }
+    .modalActions{ display:flex; gap:10px; }
+    .modalBtn{
+      flex:1;
+      border:1px solid rgba(14,165,233,.35);
+      border-radius:16px;
+      padding:12px 12px;
       font-weight:900;
-      white-space:nowrap;
+      cursor:pointer;
+      background: linear-gradient(180deg, #ffffff, var(--accent-soft));
+      color: var(--accent);
+      box-shadow: 0 10px 24px rgba(14,165,233,.12);
     }
-    .deviceChip b{ color: var(--accent); }
+    .modalBtn.secondary{
+      border-color: rgba(215,230,248,.95);
+      background: linear-gradient(180deg,#fff,var(--soft));
+      color:#274061;
+      box-shadow: 0 10px 24px rgba(11,18,32,.06);
+    }
+
+    .modalCard[data-type="success"] .modalIcon{ border-color: rgba(34,197,94,.35); }
+    .modalCard[data-type="success"] .modalBtn{ border-color: rgba(34,197,94,.35); color:#166534; background: linear-gradient(180deg,#ffffff, rgba(220,252,231,.9)); }
+
+    .modalCard[data-type="error"] .modalIcon{ border-color: rgba(239,68,68,.35); }
+    .modalCard[data-type="error"] .modalBtn{ border-color: rgba(239,68,68,.35); color:#991b1b; background: linear-gradient(180deg,#ffffff, rgba(254,226,226,.95)); }
+
+    .modalCard[data-type="warning"] .modalIcon{ border-color: rgba(245,158,11,.35); }
+    .modalCard[data-type="warning"] .modalBtn{ border-color: rgba(245,158,11,.35); color:#92400e; background: linear-gradient(180deg,#ffffff, rgba(254,243,199,.95)); }
 
     /* Bottom nav */
     .navwrap{
@@ -688,9 +716,7 @@
           <b>Today Trend</b>
           <span class="pill" id="activeUserPill">ใช้งาน: พ่อ</span>
         </div>
-        <div class="muted" style="font-size:12px; line-height:1.4;">
-          กราฟแสดงแนวโน้มสุขภาพวันนี้
-        </div>
+        <div class="muted" style="font-size:12px; line-height:1.4;">กราฟแสดงแนวโน้มสุขภาพวันนี้</div>
         <div class="chartBox">
           <canvas id="homeTrendChart"></canvas>
         </div>
@@ -759,9 +785,7 @@
           <canvas id="trendChart"></canvas>
         </div>
 
-        <div class="trendGrid" id="trendCards">
-          <!-- injected -->
-        </div>
+        <div class="trendGrid" id="trendCards"></div>
 
         <div class="encourage">
           <b>ข้อความจากระบบ 💙</b>
@@ -865,7 +889,7 @@
               <input class="input" type="password" placeholder="ตั้งรหัสผ่าน" autocomplete="new-password" />
             </div>
             <button class="authPrimary" id="registerBtn" type="button">สร้างบัญชีใหม่</button>
-            <div class="authNote">* เดโม UI: ปุ่มจะโชว์ alert แทนการสมัครจริง</div>
+            <div class="authNote">* เดโม UI: ปุ่มจะโชว์แจ้งเตือนแทนการสมัครจริง</div>
           </div>
         </div>
 
@@ -913,7 +937,6 @@
           <span class="pill" id="accountStatusPill">Logged in</span>
         </div>
 
-        <!-- Wallet Balance (keep in Account) -->
         <div class="walletCard">
           <div class="walletTop">
             <div>
@@ -1123,91 +1146,12 @@
       </div>
     </div>
 
-    <!-- DEVICE -->
+    <!-- DEVICE (placeholder) -->
     <div id="screen-device" class="hide">
       <div class="card" style="padding:14px;">
-        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
-          <div>
-            <b>Device</b>
-            <div class="muted" style="margin-top:6px;font-size:12px;">อุปกรณ์ที่เชื่อมต่อ</div>
-          </div>
-          <span class="pill">Connected</span>
-        </div>
-
-        <div class="deviceList" aria-label="Device list">
-          <div class="deviceItem">
-            <div class="devicePic" aria-hidden="true">🩺</div>
-            <div class="deviceInfo">
-              <div class="deviceName">BP Monitor</div>
-              <div class="deviceMeta">Online • BLE • Last sync 2m</div>
-              <div class="deviceStatus">
-                <span class="deviceChip">Battery <b>82%</b></span>
-                <span class="deviceChip">Signal <b>Good</b></span>
-              </div>
-            </div>
-            <span class="settingsArrow">›</span>
-          </div>
-
-          <div class="deviceItem">
-            <div class="devicePic" aria-hidden="true">🧪</div>
-            <div class="deviceInfo">
-              <div class="deviceName">Glucometer</div>
-              <div class="deviceMeta">Sync • Wi‑Fi • Last sync 1h</div>
-              <div class="deviceStatus">
-                <span class="deviceChip">Battery <b>64%</b></span>
-                <span class="deviceChip">Wi‑Fi <b>OK</b></span>
-              </div>
-            </div>
-            <span class="settingsArrow">›</span>
-          </div>
-
-          <div class="deviceItem">
-            <div class="devicePic" aria-hidden="true">🫁</div>
-            <div class="deviceInfo">
-              <div class="deviceName">Pulse Oximeter</div>
-              <div class="deviceMeta">Online • BLE • Last sync 6m</div>
-              <div class="deviceStatus">
-                <span class="deviceChip">Battery <b>77%</b></span>
-                <span class="deviceChip">Signal <b>Good</b></span>
-              </div>
-            </div>
-            <span class="settingsArrow">›</span>
-          </div>
-
-          <div class="deviceItem">
-            <div class="devicePic" aria-hidden="true">🌡️</div>
-            <div class="deviceInfo">
-              <div class="deviceName">Thermometer</div>
-              <div class="deviceMeta">Offline • Last sync 2d</div>
-              <div class="deviceStatus">
-                <span class="deviceChip">Action: <b>Reconnect</b></span>
-              </div>
-            </div>
-            <span class="settingsArrow">›</span>
-          </div>
-
-          <div class="deviceItem">
-            <div class="devicePic" aria-hidden="true">⚖️</div>
-            <div class="deviceInfo">
-              <div class="deviceName">Weight Scale</div>
-              <div class="deviceMeta">Online • Wi‑Fi • Last sync 10m</div>
-              <div class="deviceStatus">
-                <span class="deviceChip">Battery <b>91%</b></span>
-                <span class="deviceChip">Signal <b>Good</b></span>
-              </div>
-            </div>
-            <span class="settingsArrow">›</span>
-          </div>
-
-          <div class="deviceItem" style="justify-content:flex-start;">
-            <div class="devicePic" aria-hidden="true">＋</div>
-            <div class="deviceInfo">
-              <div class="deviceName">Add device</div>
-              <div class="deviceMeta">เพิ่มอุปกรณ์ใหม่และเชื่อมต่อกับแอป</div>
-            </div>
-            <span class="settingsArrow">›</span>
-          </div>
-        </div>
+        <b>Device</b>
+        <div class="muted" style="margin-top:6px;font-size:12px;">อุปกรณ์ที่เชื่อมต่อ (ตัวอย่าง)</div>
+        <div class="authNote">* หน้านี้เป็น placeholder (ยังไม่ได้จัด UI เพิ่มเติมในรอบนี้)</div>
       </div>
     </div>
 
@@ -1332,6 +1276,29 @@
 
   </div>
 
+  <!-- Pretty Alert/Confirm Modal -->
+  <div class="modal hide" id="uiModal" aria-hidden="true">
+    <div class="modalOverlay" id="uiModalOverlay" aria-hidden="true"></div>
+    <div class="modalCard" id="uiModalCard" data-type="info" role="dialog" aria-modal="true" aria-labelledby="uiModalTitle">
+      <div class="modalHead">
+        <div class="modalTitle">
+          <div class="modalIcon" id="uiModalIcon" aria-hidden="true">ℹ️</div>
+          <div class="modalText">
+            <b id="uiModalTitle">แจ้งเตือน</b>
+            <span id="uiModalMsg">...</span>
+          </div>
+        </div>
+        <button class="modalClose" id="uiModalClose" type="button" aria-label="Close">✕</button>
+      </div>
+      <div class="modalBody">
+        <div class="modalActions">
+          <button class="modalBtn secondary" id="uiModalCancel" type="button">ยกเลิก</button>
+          <button class="modalBtn" id="uiModalOk" type="button">ตกลง</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Bottom nav -->
   <div class="navwrap">
     <div class="nav" id="nav">
@@ -1368,8 +1335,6 @@
       <button data-screen="device" type="button">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M7 7h10v10H7z" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M4 10V7a3 3 0 0 1 3-3h3" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M20 14v3a3 3 0 0 1-3 3h-3" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         Device
       </button>
@@ -1388,12 +1353,135 @@
 
   <script>
     // NOTE:
-    // Some preview hosts wrap your entire HTML inside a JS template string and call document.write().
+    // Some preview hosts wrap your entire HTML inside a JS string and call document.write().
     // If we use JavaScript template literals (backticks) inside this file, it can break that wrapper.
     // Therefore: this file intentionally avoids backticks/template-literals.
 
-    // --- Helpers
     function byId(id){ return document.getElementById(id); }
+
+    // --- Pretty Alert/Confirm
+    var uiModal = byId('uiModal');
+    var uiModalOverlay = byId('uiModalOverlay');
+    var uiModalCard = byId('uiModalCard');
+    var uiModalIcon = byId('uiModalIcon');
+    var uiModalTitle = byId('uiModalTitle');
+    var uiModalMsg = byId('uiModalMsg');
+    var uiModalClose = byId('uiModalClose');
+    var uiModalOk = byId('uiModalOk');
+    var uiModalCancel = byId('uiModalCancel');
+
+    var uiModalMode = 'alert'; // alert | confirm
+    var uiModalOnClose = null;
+    var uiModalOnConfirm = null;
+    var uiModalOnCancel = null;
+
+    function uiSetButtons(opts){
+      opts = opts || {};
+      var okText = opts.okText || (uiModalMode === 'confirm' ? 'ยืนยัน' : 'ตกลง');
+      var cancelText = opts.cancelText || 'ยกเลิก';
+
+      if(uiModalOk) uiModalOk.textContent = okText;
+      if(uiModalCancel){
+        uiModalCancel.textContent = cancelText;
+        uiModalCancel.classList.toggle('hide', uiModalMode !== 'confirm');
+      }
+    }
+
+    function uiOpenModal(message, opts){
+      opts = opts || {};
+      var type = opts.type || 'info';
+      var title = opts.title || (type === 'success' ? 'สำเร็จ' : type === 'error' ? 'เกิดข้อผิดพลาด' : type === 'warning' ? 'แจ้งเตือน' : 'ข้อมูล');
+
+      // Fallback
+      if(!uiModal || !uiModalCard || !uiModalIcon || !uiModalTitle || !uiModalMsg) {
+        window.alert((title ? title + ': ' : '') + String(message || ''));
+        // If confirm fallback, assume OK
+        if(uiModalMode === 'confirm' && typeof uiModalOnConfirm === 'function'){
+          try{ uiModalOnConfirm(); } catch(e){}
+        }
+        return;
+      }
+
+      uiModalCard.setAttribute('data-type', type);
+      uiModalTitle.textContent = title;
+      uiModalMsg.textContent = String(message || '');
+
+      uiModalIcon.textContent =
+        (type === 'success') ? '✅' :
+        (type === 'error') ? '⛔' :
+        (type === 'warning') ? '⚠️' : 'ℹ️';
+
+      uiSetButtons(opts);
+
+      uiModal.classList.remove('hide');
+      uiModal.setAttribute('aria-hidden','false');
+      try{ (uiModalOk || uiModalClose).focus(); } catch(e){}
+    }
+
+    function uiAlert(message, opts){
+      opts = opts || {};
+      uiModalMode = 'alert';
+      uiModalOnClose = (typeof opts.onClose === 'function') ? opts.onClose : null;
+      uiModalOnConfirm = null;
+      uiModalOnCancel = null;
+      uiOpenModal(message, opts);
+    }
+
+    function uiConfirm(message, opts){
+      opts = opts || {};
+      uiModalMode = 'confirm';
+      uiModalOnClose = null;
+      uiModalOnConfirm = (typeof opts.onConfirm === 'function') ? opts.onConfirm : null;
+      uiModalOnCancel = (typeof opts.onCancel === 'function') ? opts.onCancel : null;
+      if(!opts.okText) opts.okText = 'ยืนยัน';
+      if(!opts.cancelText) opts.cancelText = 'ยกเลิก';
+      if(!opts.type) opts.type = 'warning';
+      if(!opts.title) opts.title = 'ยืนยันรายการ';
+      uiOpenModal(message, opts);
+    }
+
+    function closeUiModal(reason){
+      if(!uiModal) return;
+      uiModal.classList.add('hide');
+      uiModal.setAttribute('aria-hidden','true');
+
+      var mode = uiModalMode;
+      var onClose = uiModalOnClose;
+      var onConfirm = uiModalOnConfirm;
+      var onCancel = uiModalOnCancel;
+
+      uiModalOnClose = null;
+      uiModalOnConfirm = null;
+      uiModalOnCancel = null;
+      uiModalMode = 'alert';
+
+      if(mode === 'confirm'){
+        if(reason === 'confirm'){
+          if(onConfirm){ try{ onConfirm(); } catch(e){} }
+        } else {
+          if(onCancel){ try{ onCancel(); } catch(e){} }
+        }
+        return;
+      }
+
+      if(onClose){ try{ onClose(); } catch(e){} }
+    }
+
+    function modalOkHandler(){
+      closeUiModal(uiModalMode === 'confirm' ? 'confirm' : 'close');
+    }
+    function modalCancelHandler(){
+      closeUiModal('cancel');
+    }
+
+    if(uiModalOverlay) uiModalOverlay.addEventListener('click', function(){ modalCancelHandler(); });
+    if(uiModalClose) uiModalClose.addEventListener('click', function(){ modalCancelHandler(); });
+    if(uiModalOk) uiModalOk.addEventListener('click', function(){ modalOkHandler(); });
+    if(uiModalCancel) uiModalCancel.addEventListener('click', function(){ modalCancelHandler(); });
+    window.addEventListener('keydown', function(e){
+      if(!uiModal || uiModal.classList.contains('hide')) return;
+      if(e.key === 'Escape') modalCancelHandler();
+    });
 
     // --- Screens nav
     var headerTitle = byId('headerTitle');
@@ -1423,14 +1511,15 @@
     var topupSelectedAmount = 0;
     var topupSelectedMethod = 'PromptPay';
     var txns = [];
-    var purchasedPlan = ''; // Eco / Duo / Family (demo)
+    var purchasedPlan = '';
 
     function showScreen(key, noHistory){
+      if(!screens[key]) key = 'home';
       if(!noHistory && key !== currentScreen){
         navStack.push(currentScreen);
       }
       currentScreen = key;
-      // Defensive: never crash if an element is missing.
+
       Object.keys(screens).forEach(function(k){
         var el = screens[k];
         if(!el) return;
@@ -1486,12 +1575,21 @@
     var signInBtn = byId('signInBtn');
     var topBackBtn = byId('topBackBtn');
 
+    function updatePackageUI(){
+      var grid = byId('packageGrid');
+      if(!grid) return;
+      var btns = grid.querySelectorAll('button[data-plan]');
+      for(var i=0;i<btns.length;i++){
+        var b = btns[i];
+        b.classList.toggle('active', purchasedPlan && b.dataset.plan === purchasedPlan);
+      }
+    }
+
     function updateAuthUI(){
       if(signInBtn){
         if(isLoggedIn) signInBtn.classList.add('logged');
         else signInBtn.classList.remove('logged');
 
-        // plan badge on Sign in button (green)
         if(isLoggedIn && purchasedPlan){
           signInBtn.classList.add('hasplan');
           signInBtn.setAttribute('data-plan', purchasedPlan);
@@ -1523,16 +1621,6 @@
       updatePackageUI();
     }
 
-    function updatePackageUI(){
-      var grid = byId('packageGrid');
-      if(!grid) return;
-      var btns = grid.querySelectorAll('button[data-plan]');
-      for(var i=0;i<btns.length;i++){
-        var b = btns[i];
-        b.classList.toggle('active', purchasedPlan && b.dataset.plan === purchasedPlan);
-      }
-    }
-
     if(signInBtn){
       signInBtn.addEventListener('click', function(){
         if(isLoggedIn) showScreen('account');
@@ -1551,7 +1639,7 @@
       });
     }
 
-    // --- Auth interactions (tabs + dummy actions)
+    // --- Auth interactions
     var authTabs = byId('authTabs');
     var authPaneEmail = byId('authPaneEmail');
     var authPaneRegister = byId('authPaneRegister');
@@ -1584,7 +1672,7 @@
     var googleLoginBtn = byId('googleLoginBtn');
 
     function demoAuth(provider){
-      alert('Demo: ' + provider + ' (ยังไม่เชื่อมระบบจริง)');
+      uiAlert('Demo: ' + provider + ' (ยังไม่เชื่อมระบบจริง)', { type:'info', title:'Demo' });
     }
 
     function handleEmailLogin(){
@@ -1598,12 +1686,12 @@
         loggedInName = 'test';
         if(walletBalanceValue < 0) walletBalanceValue = 0;
         updateAuthUI();
-        alert('Login success (demo)');
+        uiAlert('Login success (demo)', { type:'success' });
         showScreen('account');
         return true;
       }
 
-      alert('Email/Password ไม่ถูกต้อง (เดโม: test / test)');
+      uiAlert('Email/Password ไม่ถูกต้อง (เดโม: test / test)', { type:'error' });
       return false;
     }
 
@@ -1613,22 +1701,65 @@
     if(facebookLoginBtn) facebookLoginBtn.addEventListener('click', function(){ demoAuth('Facebook login'); });
     if(googleLoginBtn) googleLoginBtn.addEventListener('click', function(){ demoAuth('Google login'); });
 
-    // --- Purchase package (with wallet deduction)
-    function handlePurchase(plan, price){
+    // --- Purchase package
+    function gotoTopup(){
       if(!isLoggedIn){
-        alert('โปรดเข้าสู่ระบบก่อน');
+        showScreen('signin');
+        return;
+      }
+      updateAuthUI();
+      setTopupAmount(0);
+      renderTxnList();
+      showScreen('topup');
+    }
+
+    function requestPurchase(plan, price){
+      if(!isLoggedIn){
+        uiAlert('โปรดเข้าสู่ระบบก่อน', { type:'warning' });
         showScreen('signin');
         return;
       }
 
       var p = Number(price) || 0;
       if(p <= 0){
-        alert('ราคาไม่ถูกต้อง');
+        uiAlert('ราคาไม่ถูกต้อง', { type:'error' });
         return;
       }
 
       if(walletBalanceValue < p){
-        alert('ยอดเงินไม่พอ กรุณาเติมเงินก่อน (Wallet: ฿' + walletBalanceValue + ')');
+        uiAlert('ยอดเงินไม่พอ กรุณาเติมเงินก่อน (Wallet: ฿' + walletBalanceValue + ')', { type:'warning' });
+        gotoTopup();
+        return;
+      }
+
+      var msg =
+        'ยืนยันการซื้อแพ็คเกจ ' + plan + ' ราคา ฿' + p + '\n' +
+        'Wallet ปัจจุบัน: ฿' + walletBalanceValue + ' → หลังซื้อ: ฿' + (walletBalanceValue - p);
+
+      uiConfirm(msg, {
+        type: 'warning',
+        title: 'ยืนยันการซื้อแพ็คเกจ',
+        okText: 'ยืนยันซื้อ',
+        cancelText: 'ยกเลิก',
+        onConfirm: function(){ handlePurchase(plan, price); }
+      });
+    }
+
+    function handlePurchase(plan, price){
+      if(!isLoggedIn){
+        uiAlert('โปรดเข้าสู่ระบบก่อน', { type:'warning' });
+        showScreen('signin');
+        return;
+      }
+
+      var p = Number(price) || 0;
+      if(p <= 0){
+        uiAlert('ราคาไม่ถูกต้อง', { type:'error' });
+        return;
+      }
+
+      if(walletBalanceValue < p){
+        uiAlert('ยอดเงินไม่พอ กรุณาเติมเงินก่อน (Wallet: ฿' + walletBalanceValue + ')', { type:'warning' });
         gotoTopup();
         return;
       }
@@ -1647,7 +1778,7 @@
       });
 
       renderTxnList();
-      alert('ซื้อแพ็คเกจสำเร็จ (demo): ' + plan);
+      uiAlert('ซื้อแพ็คเกจสำเร็จ (demo): ' + plan, { type:'success' });
     }
 
     function bindPackageGrid(){
@@ -1658,7 +1789,7 @@
         if(!btn) return;
         var plan = String(btn.dataset.plan || '');
         var price = String(btn.dataset.price || '');
-        handlePurchase(plan, price);
+        requestPurchase(plan, price);
       });
     }
 
@@ -1705,17 +1836,6 @@
       txnList.innerHTML = html;
     }
 
-    function gotoTopup(){
-      if(!isLoggedIn){
-        showScreen('signin');
-        return;
-      }
-      updateAuthUI();
-      setTopupAmount(0);
-      renderTxnList();
-      showScreen('topup');
-    }
-
     if(goTopupBtn) goTopupBtn.addEventListener('click', function(){ gotoTopup(); });
     if(menuTopup) menuTopup.addEventListener('click', function(){ gotoTopup(); });
     if(packageGoTopupBtn) packageGoTopupBtn.addEventListener('click', function(){ gotoTopup(); });
@@ -1757,29 +1877,42 @@
     if(confirmTopupBtn){
       confirmTopupBtn.addEventListener('click', function(){
         if(!isLoggedIn){
-          alert('โปรดเข้าสู่ระบบก่อน');
+          uiAlert('โปรดเข้าสู่ระบบก่อน', { type:'warning' });
           showScreen('signin');
           return;
         }
         if(topupSelectedAmount <= 0){
-          alert('กรุณาเลือกจำนวนเงินที่จะเติม');
+          uiAlert('กรุณาเลือกจำนวนเงินที่จะเติม', { type:'warning' });
           return;
         }
 
-        walletBalanceValue = walletBalanceValue + topupSelectedAmount;
-        updateAuthUI();
+        var msg =
+          'ยืนยันการเติมเงิน ฿' + topupSelectedAmount + '\n' +
+          'วิธีชำระ: ' + topupSelectedMethod + '\n' +
+          'Wallet ปัจจุบัน: ฿' + walletBalanceValue + ' → หลังเติม: ฿' + (walletBalanceValue + topupSelectedAmount);
 
-        var now = new Date();
-        var hh = String(now.getHours()).padStart(2,'0');
-        var mm = String(now.getMinutes()).padStart(2,'0');
-        txns.unshift({
-          title: 'Top-up ฿' + topupSelectedAmount,
-          time: hh + ':' + mm,
-          desc: 'Method: ' + topupSelectedMethod + ' • Balance: ฿' + walletBalanceValue
+        uiConfirm(msg, {
+          type: 'warning',
+          title: 'ยืนยัน Top-up',
+          okText: 'ยืนยันเติม',
+          cancelText: 'ยกเลิก',
+          onConfirm: function(){
+            walletBalanceValue = walletBalanceValue + topupSelectedAmount;
+            updateAuthUI();
+
+            var now = new Date();
+            var hh = String(now.getHours()).padStart(2,'0');
+            var mm = String(now.getMinutes()).padStart(2,'0');
+            txns.unshift({
+              title: 'Top-up ฿' + topupSelectedAmount,
+              time: hh + ':' + mm,
+              desc: 'Method: ' + topupSelectedMethod + ' • Balance: ฿' + walletBalanceValue
+            });
+
+            renderTxnList();
+            uiAlert('Top-up success (demo)', { type:'success' });
+          }
         });
-
-        renderTxnList();
-        alert('Top-up success (demo)');
       });
     }
 
@@ -1788,7 +1921,7 @@
         isLoggedIn = false;
         purchasedPlan = '';
         updateAuthUI();
-        alert('Logged out (demo)');
+        uiAlert('Logged out (demo)', { type:'info' });
         showScreen('home');
       });
     }
@@ -1799,41 +1932,21 @@
     var menuSupport = byId('menuSupport');
     var menuSecurity = byId('menuSecurity');
 
-    if(menuManage) menuManage.addEventListener('click', function(){ alert('Manage (demo)'); });
-    if(menuBilling) menuBilling.addEventListener('click', function(){ alert('Billing (demo)'); });
-    if(menuSupport) menuSupport.addEventListener('click', function(){ alert('Support (demo)'); });
-    if(menuSecurity) menuSecurity.addEventListener('click', function(){ alert('Security (demo)'); });
+    if(menuManage) menuManage.addEventListener('click', function(){ uiAlert('Manage (demo)', { type:'info' }); });
+    if(menuBilling) menuBilling.addEventListener('click', function(){ uiAlert('Billing (demo)', { type:'info' }); });
+    if(menuSupport) menuSupport.addEventListener('click', function(){ uiAlert('Support (demo)', { type:'info' }); });
+    if(menuSecurity) menuSecurity.addEventListener('click', function(){ uiAlert('Security (demo)', { type:'info' }); });
 
-    // --- Family data (dummy but consistent)
+    // --- Family data
     var family = {
-      dad: {
-        name: 'พ่อ',
-        improvePct: 12,
-        series: [62, 64, 66, 67, 69, 71, 74],
-        summary: { bp: 12, glucose: 9, spo2: 3, advice: 'โฟกัสการพักผ่อน + เดินเบา ๆ หลังอาหาร 10–15 นาที' },
-        encourage: 'สุดยอดเลยพ่อ! ทำต่อเนื่องอีกนิดจะเห็นผลชัดขึ้นนะคะ 💪'
-      },
-      mom: {
-        name: 'แม่',
-        improvePct: 10,
-        series: [60, 62, 63, 65, 67, 70, 73],
-        summary: { bp: 10, glucose: 11, spo2: 2, advice: 'คุมหวานได้ดีมาก เพิ่มดื่มน้ำ + นอนให้ครบ 7–8 ชม.' },
-        encourage: 'แม่ทำได้ดีมากค่ะ 💙 สม่ำเสมอแบบนี้ไปเรื่อย ๆ นะคะ'
-      },
-      grandma: {
-        name: 'ยาย',
-        improvePct: 8,
-        series: [58, 59, 61, 62, 64, 66, 69],
-        summary: { bp: 8, glucose: 7, spo2: 4, advice: 'ทานยาตามเวลา + ขยับตัวเบา ๆ ทุกวันช่วยได้มาก' },
-        encourage: 'ยายเก่งมากเลยค่ะ 🌷 ค่อย ๆ ดีขึ้นแบบนี้คือดีที่สุดแล้วนะคะ'
-      }
+      dad: { name: 'พ่อ', improvePct: 12, series: [62, 64, 66, 67, 69, 71, 74], summary: { bp: 12, glucose: 9, spo2: 3, advice: 'โฟกัสการพักผ่อน + เดินเบา ๆ หลังอาหาร 10–15 นาที' }, encourage: 'สุดยอดเลยพ่อ! ทำต่อเนื่องอีกนิดจะเห็นผลชัดขึ้นนะคะ 💪' },
+      mom: { name: 'แม่', improvePct: 10, series: [60, 62, 63, 65, 67, 70, 73], summary: { bp: 10, glucose: 11, spo2: 2, advice: 'คุมหวานได้ดีมาก เพิ่มดื่มน้ำ + นอนให้ครบ 7–8 ชม.' }, encourage: 'แม่ทำได้ดีมากค่ะ 💙 สม่ำเสมอแบบนี้ไปเรื่อย ๆ นะคะ' },
+      grandma: { name: 'ยาย', improvePct: 8, series: [58, 59, 61, 62, 64, 66, 69], summary: { bp: 8, glucose: 7, spo2: 4, advice: 'ทานยาตามเวลา + ขยับตัวเบา ๆ ทุกวันช่วยได้มาก' }, encourage: 'ยายเก่งมากเลยค่ะ 🌷 ค่อย ๆ ดีขึ้นแบบนี้คือดีที่สุดแล้วนะคะ' }
     };
 
-    // --- Active user (selected from Profile)
     var activeMember = 'dad';
     var activeUserPill = byId('activeUserPill');
 
-    // --- Charts (init only when Chart.js + canvas exist)
     var homeCanvas = byId('homeTrendChart');
     var trendCanvas = byId('trendChart');
     var canChart = typeof window.Chart !== 'undefined';
@@ -1908,7 +2021,6 @@
       }
     }
 
-    // --- Trends interactions
     var trendMemberSeg = byId('trendMemberSeg');
     var trendChartTitle = byId('trendChartTitle');
     var trendImprovePill = byId('trendImprovePill');
@@ -1930,9 +2042,7 @@
         html += '    <b>กรอบแนวโน้ม</b>';
         html += '    <span class="pill">Improving</span>';
         html += '  </div>';
-        html += '  <div class="trendSmall">';
-        html += '    ภาพรวม 30 วันล่าสุดของ <b>' + d.name + '</b> ดีขึ้นอย่างต่อเนื่อง เหมาะกับการ “ทำต่อ” ในรูปแบบเดิม';
-        html += '  </div>';
+        html += '  <div class="trendSmall">ภาพรวม 30 วันล่าสุดของ <b>' + d.name + '</b> ดีขึ้นอย่างต่อเนื่อง เหมาะกับการ “ทำต่อ” ในรูปแบบเดิม</div>';
         html += '  <div class="tags">';
         html += '    <span class="tag">BP ดีขึ้น <b>' + s.bp + '%</b></span>';
         html += '    <span class="tag">Glucose ดีขึ้น <b>' + s.glucose + '%</b></span>';
@@ -1980,7 +2090,6 @@
       });
     }
 
-    // --- Profile: select active user
     var profileGrid = byId('profileGrid');
     if(profileGrid){
       profileGrid.addEventListener('click', function(e){
@@ -1998,8 +2107,7 @@
       });
     }
 
-    // --- Tests (basic sanity checks)
-    // IMPORTANT: tests should not affect the initial landing screen in production.
+    // --- Tests
     // Run tests only when URL contains ?debug=1
     (function runTests(){
       var search = String(window.location && window.location.search ? window.location.search : '');
@@ -2010,6 +2118,7 @@
       var prevLogged = isLoggedIn;
       var prevName = loggedInName;
       var prevBalance = walletBalanceValue;
+      var prevPlan = purchasedPlan;
       var prevStack = navStack.slice();
 
       var required = [
@@ -2018,7 +2127,8 @@
         'activeUserPill','trendMemberSeg','trendCards',
         'emailInput','passwordInput','emailLoginBtn',
         'walletBalance','topupBalance','goTopupBtn','confirmTopupBtn',
-        'menuPackage','packageGrid','currentPlanPill','packageWalletBalance','packageGoTopupBtn'
+        'menuPackage','packageGrid','currentPlanPill','packageWalletBalance','packageGoTopupBtn',
+        'uiModal','uiModalCard','uiModalOk','uiModalCancel'
       ];
 
       var results = [];
@@ -2032,33 +2142,84 @@
         catch(e){ results.push({ test:name, pass:false, error: String(e) }); }
       }
 
-      // Screen navigation should not throw.
-      safeCall("showScreen('home')", function(){ showScreen('home', true); });
-      safeCall("showScreen('alerts')", function(){ showScreen('alerts', true); });
-      safeCall("showScreen('trends')", function(){ showScreen('trends', true); });
-      safeCall("showScreen('profile')", function(){ showScreen('profile', true); });
-      safeCall("showScreen('device')", function(){ showScreen('device', true); });
-      safeCall("showScreen('signin')", function(){ showScreen('signin', true); });
-      safeCall("showScreen('settings')", function(){ showScreen('settings', true); });
-      safeCall("showScreen('account')", function(){ showScreen('account', true); });
-      safeCall("showScreen('topup')", function(){ showScreen('topup', true); });
+      function clickIfExists(id){
+        var el = byId(id);
+        if(el && typeof el.click === 'function') el.click();
+      }
 
-      // Auth tabs should not throw.
-      safeCall("setAuthPane('email')", function(){ setAuthPane('email'); });
-      safeCall("setAuthPane('register')", function(){ setAuthPane('register'); });
-
-      safeCall("purchase Eco (demo)", function(){
-        // simulate: logged in + purchase
-        isLoggedIn = true;
-        purchasedPlan = '';
-        updateAuthUI();
-        handlePurchase('Eco','199');
+      safeCall('showScreen cycle', function(){
+        showScreen('home', true);
+        showScreen('alerts', true);
+        showScreen('trends', true);
+        showScreen('profile', true);
+        showScreen('device', true);
+        showScreen('signin', true);
+        showScreen('settings', true);
+        showScreen('account', true);
+        showScreen('topup', true);
+        showScreen('package', true);
       });
 
-      // Restore state so tests don't change what users see.
+      safeCall('uiAlert open/close', function(){
+        uiAlert('Test modal', { type:'info', title:'Test' });
+        closeUiModal('close');
+      });
+
+      safeCall('uiConfirm confirm/cancel', function(){
+        var confirmed = 0;
+        var canceled = 0;
+        uiConfirm('Confirm test', {
+          onConfirm: function(){ confirmed++; },
+          onCancel: function(){ canceled++; }
+        });
+        clickIfExists('uiModalOk');
+
+        uiConfirm('Confirm cancel test', {
+          onConfirm: function(){ confirmed++; },
+          onCancel: function(){ canceled++; }
+        });
+        clickIfExists('uiModalCancel');
+
+        if(confirmed < 1) throw new Error('Confirm did not fire');
+        if(canceled < 1) throw new Error('Cancel did not fire');
+      });
+
+      safeCall('purchase confirm flow', function(){
+        isLoggedIn = true;
+        walletBalanceValue = 500;
+        purchasedPlan = '';
+        updateAuthUI();
+        requestPurchase('Eco','199');
+        clickIfExists('uiModalOk');
+        if(purchasedPlan !== 'Eco') throw new Error('Plan not set');
+        if(walletBalanceValue !== 301) throw new Error('Balance not deducted correctly');
+      });
+
+      safeCall('topup confirm flow', function(){
+        isLoggedIn = true;
+        walletBalanceValue = 100;
+        topupSelectedAmount = 50;
+        topupSelectedMethod = 'PromptPay';
+        updateAuthUI();
+        // simulate clicking confirm
+        var msg = 'ยืนยันการเติมเงิน ฿' + topupSelectedAmount + '\n' +
+                  'วิธีชำระ: ' + topupSelectedMethod + '\n' +
+                  'Wallet ปัจจุบัน: ฿' + walletBalanceValue + ' → หลังเติม: ฿' + (walletBalanceValue + topupSelectedAmount);
+        uiConfirm(msg, {
+          title:'ยืนยัน Top-up',
+          okText:'ยืนยันเติม',
+          cancelText:'ยกเลิก',
+          onConfirm: function(){ walletBalanceValue = walletBalanceValue + topupSelectedAmount; }
+        });
+        clickIfExists('uiModalOk');
+        if(walletBalanceValue !== 150) throw new Error('Topup not applied');
+      });
+
+      // Restore state
       isLoggedIn = prevLogged;
       loggedInName = prevName;
       walletBalanceValue = prevBalance;
+      purchasedPlan = prevPlan;
       navStack = prevStack;
       updateAuthUI();
       showScreen(prevScreen || 'home', true);
@@ -2066,8 +2227,6 @@
       console.table(results);
     })();
 
-    // init
-    // Landing screen: default to Home. Allow deep-link via URL hash (e.g. #signin, #device)
     function initFromHash(){
       var h = String(window.location && window.location.hash ? window.location.hash : '').replace('#','');
       if(h && screens[h]){
