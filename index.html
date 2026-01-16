@@ -53,7 +53,9 @@
       box-shadow: 0 10px 24px rgba(11,18,32,.08);
       user-select:none;
       color:#274061;
+      cursor:pointer;
     }
+    .iconbtn:active{ transform: translateY(1px); }
     .title{
       text-align:center;
       line-height:1.15;
@@ -67,12 +69,6 @@
       margin-top:3px;
       font-size:11px;
       color:var(--muted);
-    }
-    .avatar{
-      width:26px;height:26px;
-      border-radius:999px;
-      background:var(--soft);
-      border:1px solid var(--border);
     }
 
     /* Base */
@@ -311,6 +307,218 @@
     .settingsSub{ display:block; margin-top:2px; font-size:11px; color:var(--muted); }
     .settingsArrow{ color:#6b86a8; font-size:18px; font-weight:900; }
 
+    /* Auth (Sign in) */
+    .authHero{ margin-top:8px; }
+    .authHero b{ font-size:14px; }
+    .authHero p{ margin:6px 0 0; font-size:12px; color:var(--muted); line-height:1.45; }
+
+    .authBox{ margin-top:12px; border:1px solid var(--border); border-radius:16px; overflow:hidden; background:linear-gradient(180deg,#fff,var(--soft)); box-shadow: 0 10px 24px rgba(11,18,32,.06); }
+    .authTabs{ display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:6px; border-bottom:1px solid rgba(215,230,248,.9); }
+    .authTabs button{ border:1px solid transparent; background:transparent; border-radius:12px; padding:10px 8px; font-size:12px; color:var(--muted); cursor:pointer; font-weight:900; }
+    .authTabs button.active{ background: var(--accent-soft); border-color: rgba(14,165,233,.28); color: var(--accent-2); box-shadow: 0 10px 24px rgba(14,165,233,.12); }
+
+    .authPane{ padding:12px; }
+    .field{ display:grid; gap:6px; margin-top:10px; }
+    .field label{ font-size:11px; font-weight:900; color:#2b4769; }
+    .input{
+      width:100%;
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px 12px;
+      background:#fff;
+      font-size:13px;
+      outline:none;
+    }
+    .input:focus{ border-color: rgba(14,165,233,.45); box-shadow: 0 0 0 4px rgba(14,165,233,.12); }
+
+    .authPrimary{
+      margin-top:12px;
+      width:100%;
+      border:1px solid rgba(14,165,233,.35);
+      border-radius:16px;
+      padding:12px 12px;
+      font-weight:900;
+      cursor:pointer;
+      background: linear-gradient(180deg, #ffffff, var(--accent-soft));
+      color: var(--accent);
+      box-shadow: 0 10px 24px rgba(14,165,233,.12);
+    }
+    .authNote{ margin-top:10px; font-size:11px; color:var(--muted); line-height:1.45; }
+
+    .divider{ display:flex; align-items:center; gap:10px; margin:12px 0; color:#6b86a8; font-size:11px; font-weight:900; }
+    .divider:before,.divider:after{ content:""; height:1px; flex:1; background: rgba(215,230,248,.9); }
+
+    .oauthList{ display:grid; gap:10px; }
+    .oauthBtn{
+      width:100%;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg,#fff,var(--soft));
+      cursor:pointer;
+      text-align:left;
+    }
+    .oauthIco{ width:34px;height:34px; border-radius:12px; display:grid; place-items:center; border:1px solid rgba(215,230,248,.9); background:#fff; box-shadow: 0 10px 22px rgba(11,18,32,.05); }
+    .oauthMain{ font-weight:900; font-size:13px; }
+    .oauthSub{ margin-top:2px; font-size:11px; color:var(--muted); }
+
+    /* Account (After login) */
+    .accountHeader{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+    .accountHeader b{ font-size:14px; }
+    .accountHeader .muted{ font-size:12px; margin-top:4px; }
+
+    .walletCard{
+      margin-top:12px;
+      padding:12px;
+      border:1px solid rgba(14,165,233,.28);
+      border-radius:16px;
+      background: linear-gradient(180deg, #ffffff, rgba(232,244,255,.95));
+    }
+    .walletTop{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .walletTop .amt{ font-weight:900; font-size:20px; letter-spacing:-.3px; }
+    .walletTop .unit{ font-size:11px; color:var(--muted); font-weight:900; }
+    .walletMeta{ margin-top:6px; font-size:12px; color:#2b4769; }
+
+    .menuGrid{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:12px; }
+    .menuBtn{
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:linear-gradient(180deg,#fff,var(--soft));
+      padding:12px;
+      cursor:pointer;
+      text-align:left;
+      box-shadow: 0 10px 20px rgba(11,18,32,.06);
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .menuBtn:active{ transform: translateY(1px); }
+    .menuIco{
+      width:40px;height:40px;
+      border-radius:14px;
+      border:1px solid rgba(14,165,233,.25);
+      background:#fff;
+      display:grid;
+      place-items:center;
+      font-size:18px;
+      flex:0 0 auto;
+      box-shadow: 0 10px 22px rgba(11,18,32,.05);
+    }
+    .menuMain{ font-weight:900; font-size:13px; }
+    .menuSub{ margin-top:3px; font-size:11px; color:var(--muted); line-height:1.35; }
+
+    .primaryBtn{
+      width:100%;
+      border:1px solid rgba(14,165,233,.35);
+      border-radius:16px;
+      padding:12px 12px;
+      font-weight:900;
+      cursor:pointer;
+      background: linear-gradient(180deg, #ffffff, var(--accent-soft));
+      color: var(--accent);
+      box-shadow: 0 10px 24px rgba(14,165,233,.12);
+    }
+
+    /* Top-up */
+    .amountGrid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:12px; }
+    .amountBtn{
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:linear-gradient(180deg,#fff,var(--soft));
+      padding:12px 10px;
+      cursor:pointer;
+      text-align:center;
+      font-weight:900;
+      color:#274061;
+    }
+    .amountBtn.active{
+      outline: 2px solid rgba(14,165,233,.45);
+      border-color: rgba(14,165,233,.45);
+      background: linear-gradient(180deg, #fff, rgba(232,244,255,.95));
+      color: var(--accent);
+    }
+    .methodList{ display:grid; gap:10px; margin-top:12px; }
+    .methodBtn{
+      width:100%;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg,#fff,var(--soft));
+      cursor:pointer;
+      text-align:left;
+    }
+    .methodBtn.active{ outline: 2px solid rgba(14,165,233,.45); border-color: rgba(14,165,233,.45); }
+
+    .txnList{ display:grid; gap:10px; margin-top:12px; }
+    .txnItem{ padding:12px; border:1px solid var(--border); border-radius:16px; background:linear-gradient(180deg,#fff,var(--soft)); }
+    .txnTop{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+    .txnTop b{ font-size:12px; }
+    .txnTop span{ font-size:11px; color:var(--muted); font-weight:900; }
+    .txnSub{ margin-top:6px; font-size:12px; color:#2b4769; }
+
+    /* Logged indicator on top right */
+    #signInBtn.logged{ position:relative; }
+    #signInBtn.logged:after{
+      content:"";
+      position:absolute;
+      right:8px; top:8px;
+      width:10px; height:10px;
+      border-radius:999px;
+      background: #22c55e;
+      border:2px solid #fff;
+      box-shadow: 0 10px 20px rgba(11,18,32,.10);
+    }
+
+    /* Device */
+    .deviceList{ display:grid; gap:10px; margin-top:12px; }
+    .deviceItem{
+      padding:12px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:linear-gradient(180deg,#fff,var(--soft));
+      box-shadow: 0 10px 20px rgba(11,18,32,.06);
+    }
+    .devicePic{
+      width:56px;height:56px;
+      border-radius:14px;
+      border:1px solid rgba(14,165,233,.25);
+      background:#fff;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      flex:0 0 auto;
+      color:#274061;
+      font-size:18px;
+    }
+    .devicePic img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .deviceInfo{ flex:1; min-width:0; }
+    .deviceName{ font-weight:900; font-size:13px; }
+    .deviceMeta{ margin-top:2px; font-size:11px; color:var(--muted); }
+    .deviceStatus{ margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; }
+    .deviceChip{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: var(--accent-soft);
+      border:1px solid rgba(14,165,233,.28);
+      color: var(--accent-2);
+      font-size:11px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .deviceChip b{ color: var(--accent); }
+
     /* Bottom nav */
     .navwrap{
       position:fixed;
@@ -328,7 +536,7 @@
       backdrop-filter: blur(10px);
       padding:8px;
       display:grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap:6px;
     }
     .nav button{
@@ -360,20 +568,23 @@
   <div class="wrap">
     <!-- Topbar -->
     <div class="topbar">
-      <div class="iconbtn" aria-hidden="true">
+      <button class="iconbtn" id="topBackBtn" type="button" aria-label="Back">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-      </div>
+      </button>
 
       <div class="title">
         <div class="h" id="headerTitle">Zyta Dashboard</div>
         <div class="s" id="headerSub">ภาพรวมสุขภาพวันนี้ • 9 Jan</div>
       </div>
 
-      <div class="iconbtn" aria-hidden="true">
-        <div class="avatar"></div>
-      </div>
+      <button class="iconbtn" id="signInBtn" type="button" aria-label="Sign in">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21a8 8 0 10-16 0" stroke-linecap="round"/>
+          <path d="M12 11a4 4 0 100-8 4 4 0 000 8z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </div>
 
     <!-- HOME -->
@@ -476,9 +687,9 @@
         </div>
 
         <div class="seg" id="trendMemberSeg">
-          <button class="active" data-member="dad">พ่อ</button>
-          <button data-member="mom">แม่</button>
-          <button data-member="grandma">ยาย</button>
+          <button class="active" data-member="dad" type="button">พ่อ</button>
+          <button data-member="mom" type="button">แม่</button>
+          <button data-member="grandma" type="button">ยาย</button>
         </div>
 
         <div class="chartBox">
@@ -495,14 +706,12 @@
 
         <div class="encourage">
           <b>ข้อความจากระบบ 💙</b>
-          <p id="trendEncourage">
-            ทุกคนทำได้ดีมาก! สม่ำเสมออีกนิด ผลลัพธ์จะยิ่งชัดขึ้นนะคะ 😊
-          </p>
+          <p id="trendEncourage">ทุกคนทำได้ดีมาก! สม่ำเสมออีกนิด ผลลัพธ์จะยิ่งชัดขึ้นนะคะ 😊</p>
         </div>
       </div>
     </div>
 
-    <!-- PROFILE (✅ กดเลือกบุคคลที่ใช้งานได้) -->
+    <!-- PROFILE -->
     <div id="screen-profile" class="hide">
       <div class="card" style="padding:14px;">
         <b>Profile</b>
@@ -556,7 +765,313 @@
       </div>
     </div>
 
-    <!-- SETTINGS (dummy list) -->
+    <!-- SIGN IN -->
+    <div id="screen-signin" class="hide">
+      <div class="card" style="padding:14px;">
+        <div class="authHero">
+          <b>Sign in</b>
+          <p>เข้าสู่ระบบเพื่อบันทึกข้อมูล และใช้งานหลายอุปกรณ์ได้อย่างต่อเนื่อง</p>
+        </div>
+
+        <div class="authBox" style="margin-top:12px;">
+          <div class="authTabs" id="authTabs">
+            <button class="active" type="button" data-pane="email">Email Login</button>
+            <button type="button" data-pane="register">Register</button>
+          </div>
+
+          <div class="authPane" id="authPaneEmail">
+            <div class="field">
+              <label>Email</label>
+              <input class="input" id="emailInput" type="text" placeholder="เช่น test" autocomplete="email" />
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input class="input" id="passwordInput" type="password" placeholder="เช่น test" autocomplete="current-password" />
+            </div>
+            <button class="authPrimary" id="emailLoginBtn" type="button">เข้าสู่ระบบด้วยอีเมล</button>
+            <div class="authNote">* เดโมล็อกอิน: ใส่ Email = <b>test</b> และ Password = <b>test</b> เพื่อเข้าสู่หน้าเมนูหลังล็อกอิน</div>
+          </div>
+
+          <div class="authPane hide" id="authPaneRegister">
+            <div class="field">
+              <label>ชื่อที่แสดง</label>
+              <input class="input" type="text" placeholder="เช่น คุณพ่อ" autocomplete="name" />
+            </div>
+            <div class="field">
+              <label>Email</label>
+              <input class="input" type="email" placeholder="name@example.com" autocomplete="email" />
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input class="input" type="password" placeholder="ตั้งรหัสผ่าน" autocomplete="new-password" />
+            </div>
+            <button class="authPrimary" id="registerBtn" type="button">สร้างบัญชีใหม่</button>
+            <div class="authNote">* เดโม UI: ปุ่มจะโชว์ alert แทนการสมัครจริง</div>
+          </div>
+        </div>
+
+        <div class="divider">หรือเข้าสู่ระบบด้วย</div>
+
+        <div class="oauthList">
+          <button class="oauthBtn" id="lineLoginBtn" type="button">
+            <span class="oauthIco">💬</span>
+            <span style="flex:1; min-width:0;">
+              <span class="oauthMain">LINE Login</span>
+              <span class="oauthSub">เชื่อมบัญชีด้วย LINE</span>
+            </span>
+            <span class="settingsArrow">›</span>
+          </button>
+
+          <button class="oauthBtn" id="facebookLoginBtn" type="button">
+            <span class="oauthIco">📘</span>
+            <span style="flex:1; min-width:0;">
+              <span class="oauthMain">Facebook Login</span>
+              <span class="oauthSub">เชื่อมบัญชีด้วย Facebook</span>
+            </span>
+            <span class="settingsArrow">›</span>
+          </button>
+
+          <button class="oauthBtn" id="googleLoginBtn" type="button">
+            <span class="oauthIco">🟦</span>
+            <span style="flex:1; min-width:0;">
+              <span class="oauthMain">Google Login</span>
+              <span class="oauthSub">เชื่อมบัญชีด้วย Google</span>
+            </span>
+            <span class="settingsArrow">›</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCOUNT (after login) -->
+    <div id="screen-account" class="hide">
+      <div class="card" style="padding:14px;">
+        <div class="accountHeader">
+          <div>
+            <b>Account</b>
+            <div class="muted">ยินดีต้อนรับ <b id="accountUserName">test</b></div>
+          </div>
+          <span class="pill">Logged in</span>
+        </div>
+
+        <div class="walletCard">
+          <div class="walletTop">
+            <div>
+              <div class="muted" style="font-size:11px; font-weight:900;">Wallet Balance</div>
+              <div class="amt" id="walletBalance">฿120</div>
+            </div>
+            <div class="unit">THB</div>
+          </div>
+          <div class="walletMeta">เติมเงินเพื่อปลดล็อกฟีเจอร์ และจัดการบริการต่าง ๆ</div>
+          <button class="primaryBtn" id="goTopupBtn" type="button" style="margin-top:12px;">Top-up</button>
+        </div>
+
+        <div class="menuGrid" aria-label="Account menus">
+          <button class="menuBtn" id="menuTopup" type="button">
+            <div class="menuIco">💳</div>
+            <div>
+              <div class="menuMain">Top-up</div>
+              <div class="menuSub">เติมเงินเข้ากระเป๋า</div>
+            </div>
+          </button>
+
+          <button class="menuBtn" id="menuManage" type="button">
+            <div class="menuIco">🧰</div>
+            <div>
+              <div class="menuMain">Manage</div>
+              <div class="menuSub">จัดการโปรไฟล์/อุปกรณ์</div>
+            </div>
+          </button>
+
+          <button class="menuBtn" id="menuBilling" type="button">
+            <div class="menuIco">🧾</div>
+            <div>
+              <div class="menuMain">Billing</div>
+              <div class="menuSub">ใบเสร็จ & ประวัติชำระ</div>
+            </div>
+          </button>
+
+          <button class="menuBtn" id="menuSupport" type="button">
+            <div class="menuIco">🆘</div>
+            <div>
+              <div class="menuMain">Support</div>
+              <div class="menuSub">ศูนย์ช่วยเหลือ</div>
+            </div>
+          </button>
+
+          <button class="menuBtn" id="menuSecurity" type="button">
+            <div class="menuIco">🔒</div>
+            <div>
+              <div class="menuMain">Security</div>
+              <div class="menuSub">ความปลอดภัยบัญชี</div>
+            </div>
+          </button>
+
+          <button class="menuBtn" id="logoutBtn" type="button">
+            <div class="menuIco">🚪</div>
+            <div>
+              <div class="menuMain">Logout</div>
+              <div class="menuSub">ออกจากระบบ</div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOP-UP -->
+    <div id="screen-topup" class="hide">
+      <div class="card" style="padding:14px;">
+        <div class="accountHeader">
+          <div>
+            <b>Top-up</b>
+            <div class="muted">ยอดคงเหลือ: <b id="topupBalance">฿120</b></div>
+          </div>
+          <span class="pill" id="topupSelectedPill">เลือกจำนวน</span>
+        </div>
+
+        <div class="muted" style="margin-top:10px; font-size:12px; line-height:1.45;">
+          เลือกจำนวนเงินที่ต้องการเติม แล้วเลือกวิธีชำระเงิน
+        </div>
+
+        <div class="amountGrid" id="amountGrid">
+          <button class="amountBtn" type="button" data-amount="50">฿50</button>
+          <button class="amountBtn" type="button" data-amount="100">฿100</button>
+          <button class="amountBtn" type="button" data-amount="200">฿200</button>
+          <button class="amountBtn" type="button" data-amount="300">฿300</button>
+          <button class="amountBtn" type="button" data-amount="500">฿500</button>
+          <button class="amountBtn" type="button" data-amount="1000">฿1,000</button>
+        </div>
+
+        <div class="methodList" id="methodList">
+          <button class="methodBtn active" type="button" data-method="PromptPay">
+            <span class="oauthIco">📱</span>
+            <span style="flex:1; min-width:0;">
+              <span class="oauthMain">PromptPay</span>
+              <span class="oauthSub">สแกน QR เพื่อชำระ</span>
+            </span>
+            <span class="settingsArrow">›</span>
+          </button>
+
+          <button class="methodBtn" type="button" data-method="Card">
+            <span class="oauthIco">💳</span>
+            <span style="flex:1; min-width:0;">
+              <span class="oauthMain">Credit / Debit Card</span>
+              <span class="oauthSub">Visa / Master</span>
+            </span>
+            <span class="settingsArrow">›</span>
+          </button>
+
+          <button class="methodBtn" type="button" data-method="Bank">
+            <span class="oauthIco">🏦</span>
+            <span style="flex:1; min-width:0;">
+              <span class="oauthMain">Bank Transfer</span>
+              <span class="oauthSub">โอนผ่านธนาคาร</span>
+            </span>
+            <span class="settingsArrow">›</span>
+          </button>
+        </div>
+
+        <button class="primaryBtn" id="confirmTopupBtn" type="button" style="margin-top:12px;">ยืนยัน Top-up</button>
+        <div class="authNote">* เดโม UI: จะเพิ่มยอดเงินใน Wallet และบันทึกประวัติให้ดู</div>
+
+        <div class="txnList" id="txnList">
+          <div class="txnItem">
+            <div class="txnTop"><b>Top-up</b><span>ตัวอย่าง</span></div>
+            <div class="txnSub">ยังไม่มีรายการใหม่</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEVICE -->
+    <div id="screen-device" class="hide">
+      <div class="card" style="padding:14px;">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
+          <div>
+            <b>Device</b>
+            <div class="muted" style="margin-top:6px;font-size:12px;">อุปกรณ์ที่เชื่อมต่อ (ตัวอย่าง)</div>
+          </div>
+          <span class="pill">Connected</span>
+        </div>
+
+        <div class="deviceList" aria-label="Device list">
+          <div class="deviceItem">
+            <div class="devicePic" aria-hidden="true">🩺</div>
+            <div class="deviceInfo">
+              <div class="deviceName">BP Monitor</div>
+              <div class="deviceMeta">Online • BLE • Last sync 2m</div>
+              <div class="deviceStatus">
+                <span class="deviceChip">Battery <b>82%</b></span>
+                <span class="deviceChip">Signal <b>Good</b></span>
+              </div>
+            </div>
+            <span class="settingsArrow">›</span>
+          </div>
+
+          <div class="deviceItem">
+            <div class="devicePic" aria-hidden="true">🧪</div>
+            <div class="deviceInfo">
+              <div class="deviceName">Glucometer</div>
+              <div class="deviceMeta">Sync • Wi‑Fi • Last sync 1h</div>
+              <div class="deviceStatus">
+                <span class="deviceChip">Battery <b>64%</b></span>
+                <span class="deviceChip">Wi‑Fi <b>OK</b></span>
+              </div>
+            </div>
+            <span class="settingsArrow">›</span>
+          </div>
+
+          <div class="deviceItem">
+            <div class="devicePic" aria-hidden="true">🫁</div>
+            <div class="deviceInfo">
+              <div class="deviceName">Pulse Oximeter</div>
+              <div class="deviceMeta">Online • BLE • Last sync 6m</div>
+              <div class="deviceStatus">
+                <span class="deviceChip">Battery <b>77%</b></span>
+                <span class="deviceChip">Signal <b>Good</b></span>
+              </div>
+            </div>
+            <span class="settingsArrow">›</span>
+          </div>
+
+          <div class="deviceItem">
+            <div class="devicePic" aria-hidden="true">🌡️</div>
+            <div class="deviceInfo">
+              <div class="deviceName">Thermometer</div>
+              <div class="deviceMeta">Offline • Last sync 2d</div>
+              <div class="deviceStatus">
+                <span class="deviceChip">Action: <b>Reconnect</b></span>
+              </div>
+            </div>
+            <span class="settingsArrow">›</span>
+          </div>
+
+          <div class="deviceItem">
+            <div class="devicePic" aria-hidden="true">⚖️</div>
+            <div class="deviceInfo">
+              <div class="deviceName">Weight Scale</div>
+              <div class="deviceMeta">Online • Wi‑Fi • Last sync 10m</div>
+              <div class="deviceStatus">
+                <span class="deviceChip">Battery <b>91%</b></span>
+                <span class="deviceChip">Signal <b>Good</b></span>
+              </div>
+            </div>
+            <span class="settingsArrow">›</span>
+          </div>
+
+          <div class="deviceItem" style="justify-content:flex-start;">
+            <div class="devicePic" aria-hidden="true">＋</div>
+            <div class="deviceInfo">
+              <div class="deviceName">Add device</div>
+              <div class="deviceMeta">เพิ่มอุปกรณ์ใหม่และเชื่อมต่อกับแอป</div>
+            </div>
+            <span class="settingsArrow">›</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
     <div id="screen-settings" class="hide">
       <div class="card">
         <div style="padding:14px; display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
@@ -680,20 +1195,20 @@
   <!-- Bottom nav -->
   <div class="navwrap">
     <div class="nav" id="nav">
-      <button class="active" data-screen="home">
+      <button class="active" data-screen="home" type="button">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         Home
       </button>
-      <button data-screen="alerts">
+      <button data-screen="alerts" type="button">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M13.73 21a2 2 0 01-3.46 0" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         Alerts
       </button>
-      <button data-screen="trends">
+      <button data-screen="trends" type="button">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M4 19V5" stroke-linecap="round"/>
           <path d="M8 19V11" stroke-linecap="round"/>
@@ -703,14 +1218,22 @@
         </svg>
         Trends
       </button>
-      <button data-screen="profile">
+      <button data-screen="profile" type="button">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M20 21a8 8 0 10-16 0" stroke-linecap="round"/>
           <path d="M12 11a4 4 0 100-8 4 4 0 000 8z" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         Profile
       </button>
-      <button data-screen="settings">
+      <button data-screen="device" type="button">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 7h10v10H7z" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 10V7a3 3 0 0 1 3-3h3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 14v3a3 3 0 0 1-3 3h-3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Device
+      </button>
+      <button data-screen="settings" type="button">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 15.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M19.4 15a7.9 7.9 0 00.1-2l2-1.2-2-3.4-2.3.7a8.4 8.4 0 00-1.7-1l-.3-2.4H10.8l-.3 2.4a8.4 8.4 0 00-1.7 1l-2.3-.7-2 3.4 2 1.2a7.9 7.9 0 00.1 2l-2 1.2 2 3.4 2.3-.7c.5.4 1.1.7 1.7 1l.3 2.4h4.4l.3-2.4c.6-.3 1.2-.6 1.7-1l2.3.7 2-3.4-2-1.2z" stroke-linecap="round" stroke-linejoin="round"/>
@@ -724,223 +1247,576 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
   <script>
-    // --- Screens nav
-    const headerTitle = document.getElementById("headerTitle");
-    const headerSub = document.getElementById("headerSub");
-    const nav = document.getElementById("nav");
+    // NOTE:
+    // Some preview hosts wrap your entire HTML inside a JS template string and call document.write().
+    // If we use JavaScript template literals (backticks) inside this file, it can break that wrapper.
+    // Therefore: this file intentionally avoids backticks/template-literals.
 
-    const screens = {
-      home: document.getElementById("screen-home"),
-      alerts: document.getElementById("screen-alerts"),
-      trends: document.getElementById("screen-trends"),
-      profile: document.getElementById("screen-profile"),
-      settings: document.getElementById("screen-settings"),
+    // --- Helpers
+    function byId(id){ return document.getElementById(id); }
+
+    // --- Screens nav
+    var headerTitle = byId('headerTitle');
+    var headerSub = byId('headerSub');
+    var nav = byId('nav');
+
+    var screens = {
+      home: byId('screen-home'),
+      alerts: byId('screen-alerts'),
+      trends: byId('screen-trends'),
+      profile: byId('screen-profile'),
+      device: byId('screen-device'),
+      signin: byId('screen-signin'),
+      account: byId('screen-account'),
+      topup: byId('screen-topup'),
+      settings: byId('screen-settings')
     };
 
-    function showScreen(key){
-      Object.entries(screens).forEach(([k,el]) => el.classList.toggle("hide", k !== key));
-      headerTitle.textContent =
-        key === "home" ? "Zyta Dashboard" :
-        key === "alerts" ? "Alerts" :
-        key === "trends" ? "Trends" :
-        key === "profile" ? "Profile" : "Settings";
-      headerSub.textContent =
-        key === "home" ? "ภาพรวมวันนี้ • 9 Jan" :
-        key === "alerts" ? "แจ้งเตือนล่าสุด" :
-        key === "trends" ? "แนวโน้มย้อนหลัง" :
-        key === "profile" ? "เลือกผู้ใช้งาน" : "ตั้งค่า";
-      [...nav.querySelectorAll("button")].forEach(b => b.classList.toggle("active", b.dataset.screen === key));
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    var currentScreen = 'home';
+    var navStack = [];
+
+    // --- Auth state (demo)
+    var isLoggedIn = false;
+    var loggedInName = 'test';
+    var walletBalanceValue = 120;
+    var topupSelectedAmount = 0;
+    var topupSelectedMethod = 'PromptPay';
+    var txns = [];
+
+    function showScreen(key, noHistory){
+      if(!noHistory && key !== currentScreen){
+        navStack.push(currentScreen);
+      }
+      currentScreen = key;
+      // Defensive: never crash if an element is missing.
+      Object.keys(screens).forEach(function(k){
+        var el = screens[k];
+        if(!el) return;
+        el.classList.toggle('hide', k !== key);
+      });
+
+      if(headerTitle){
+        headerTitle.textContent =
+          (key === 'home') ? 'Zyta Dashboard' :
+          (key === 'alerts') ? 'Alerts' :
+          (key === 'trends') ? 'Trends' :
+          (key === 'profile') ? 'Profile' :
+          (key === 'device') ? 'Device' :
+          (key === 'signin') ? 'Sign in' :
+          (key === 'account') ? 'Account' :
+          (key === 'topup') ? 'Top-up' : 'Settings';
+      }
+
+      if(headerSub){
+        headerSub.textContent =
+          (key === 'home') ? 'ภาพรวมวันนี้ • 9 Jan' :
+          (key === 'alerts') ? 'แจ้งเตือนล่าสุด' :
+          (key === 'trends') ? 'แนวโน้มย้อนหลัง' :
+          (key === 'profile') ? 'เลือกผู้ใช้งาน' :
+          (key === 'device') ? 'อุปกรณ์ที่เชื่อมต่อ' :
+          (key === 'signin') ? 'เข้าสู่ระบบ' :
+          (key === 'account') ? 'เมนูหลังล็อกอิน' :
+          (key === 'topup') ? 'เติมเงิน' : 'ตั้งค่า';
+      }
+
+      if(nav){
+        var btns = nav.querySelectorAll('button[data-screen]');
+        for(var i=0;i<btns.length;i++){
+          var b = btns[i];
+          b.classList.toggle('active', b.dataset.screen === key);
+        }
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    nav.addEventListener("click", (e) => {
-      const btn = e.target.closest("button[data-screen]");
-      if(!btn) return;
-      showScreen(btn.dataset.screen);
-    });
+    if(nav){
+      nav.addEventListener('click', function(e){
+        var btn = e.target.closest('button[data-screen]');
+        if(!btn) return;
+        showScreen(btn.dataset.screen);
+      });
+    }
+
+    // --- Topbar actions
+    var signInBtn = byId('signInBtn');
+    var topBackBtn = byId('topBackBtn');
+
+    function updateAuthUI(){
+      if(signInBtn){
+        if(isLoggedIn) signInBtn.classList.add('logged');
+        else signInBtn.classList.remove('logged');
+      }
+
+      var accountUserName = byId('accountUserName');
+      var walletBalance = byId('walletBalance');
+      var topupBalance = byId('topupBalance');
+
+      if(accountUserName) accountUserName.textContent = loggedInName;
+      if(walletBalance) walletBalance.textContent = '฿' + walletBalanceValue;
+      if(topupBalance) topupBalance.textContent = '฿' + walletBalanceValue;
+    }
+
+    if(signInBtn){
+      signInBtn.addEventListener('click', function(){
+        if(isLoggedIn) showScreen('account');
+        else showScreen('signin');
+      });
+    }
+
+    if(topBackBtn){
+      topBackBtn.addEventListener('click', function(){
+        if(navStack.length > 0){
+          var prev = navStack.pop();
+          showScreen(prev, true);
+          return;
+        }
+        showScreen('home', true);
+      });
+    }
+
+    // --- Auth interactions (tabs + dummy actions)
+    var authTabs = byId('authTabs');
+    var authPaneEmail = byId('authPaneEmail');
+    var authPaneRegister = byId('authPaneRegister');
+
+    function setAuthPane(pane){
+      if(!authTabs) return;
+      var isEmail = pane === 'email';
+      if(authPaneEmail) authPaneEmail.classList.toggle('hide', !isEmail);
+      if(authPaneRegister) authPaneRegister.classList.toggle('hide', isEmail);
+
+      var tabBtns = authTabs.querySelectorAll('button[data-pane]');
+      for(var i=0;i<tabBtns.length;i++){
+        var b = tabBtns[i];
+        b.classList.toggle('active', b.dataset.pane === pane);
+      }
+    }
+
+    if(authTabs){
+      authTabs.addEventListener('click', function(e){
+        var btn = e.target.closest('button[data-pane]');
+        if(!btn) return;
+        setAuthPane(btn.dataset.pane);
+      });
+    }
+
+    var emailLoginBtn = byId('emailLoginBtn');
+    var registerBtn = byId('registerBtn');
+    var lineLoginBtn = byId('lineLoginBtn');
+    var facebookLoginBtn = byId('facebookLoginBtn');
+    var googleLoginBtn = byId('googleLoginBtn');
+
+    function demoAuth(provider){
+      alert('Demo: ' + provider + ' (ยังไม่เชื่อมระบบจริง)');
+    }
+
+    function handleEmailLogin(){
+      var emailEl = byId('emailInput');
+      var passEl = byId('passwordInput');
+      var email = emailEl ? String(emailEl.value || '').trim() : '';
+      var pass = passEl ? String(passEl.value || '').trim() : '';
+
+      if(email === 'test' && pass === 'test'){
+        isLoggedIn = true;
+        loggedInName = 'test';
+        if(walletBalanceValue < 0) walletBalanceValue = 0;
+        updateAuthUI();
+        alert('Login success (demo)');
+        showScreen('account');
+        return true;
+      }
+
+      alert('Email/Password ไม่ถูกต้อง (เดโม: test / test)');
+      return false;
+    }
+
+    if(emailLoginBtn) emailLoginBtn.addEventListener('click', function(){ handleEmailLogin(); });
+    if(registerBtn) registerBtn.addEventListener('click', function(){ demoAuth('Register'); });
+    if(lineLoginBtn) lineLoginBtn.addEventListener('click', function(){ demoAuth('LINE login'); });
+    if(facebookLoginBtn) facebookLoginBtn.addEventListener('click', function(){ demoAuth('Facebook login'); });
+    if(googleLoginBtn) googleLoginBtn.addEventListener('click', function(){ demoAuth('Google login'); });
+
+    // --- Account & Top-up actions
+    var goTopupBtn = byId('goTopupBtn');
+    var menuTopup = byId('menuTopup');
+    var confirmTopupBtn = byId('confirmTopupBtn');
+    var amountGrid = byId('amountGrid');
+    var methodList = byId('methodList');
+    var topupSelectedPill = byId('topupSelectedPill');
+    var txnList = byId('txnList');
+    var logoutBtn = byId('logoutBtn');
+
+    function setTopupAmount(v){
+      topupSelectedAmount = Number(v) || 0;
+      if(topupSelectedPill){
+        topupSelectedPill.textContent = topupSelectedAmount > 0 ? ('เลือก: ฿' + topupSelectedAmount) : 'เลือกจำนวน';
+      }
+    }
+
+    function setTopupMethod(m){
+      topupSelectedMethod = m || 'PromptPay';
+    }
+
+    function renderTxnList(){
+      if(!txnList) return;
+      if(txns.length === 0){
+        txnList.innerHTML = '<div class="txnItem"><div class="txnTop"><b>Top-up</b><span>ตัวอย่าง</span></div><div class="txnSub">ยังไม่มีรายการใหม่</div></div>';
+        return;
+      }
+
+      var html = '';
+      for(var i=0;i<txns.length;i++){
+        var t = txns[i];
+        html += '<div class="txnItem">';
+        html += '  <div class="txnTop"><b>' + t.title + '</b><span>' + t.time + '</span></div>';
+        html += '  <div class="txnSub">' + t.desc + '</div>';
+        html += '</div>';
+      }
+      txnList.innerHTML = html;
+    }
+
+    function gotoTopup(){
+      if(!isLoggedIn){
+        showScreen('signin');
+        return;
+      }
+      updateAuthUI();
+      setTopupAmount(0);
+      renderTxnList();
+      showScreen('topup');
+    }
+
+    if(goTopupBtn) goTopupBtn.addEventListener('click', function(){ gotoTopup(); });
+    if(menuTopup) menuTopup.addEventListener('click', function(){ gotoTopup(); });
+
+    if(amountGrid){
+      amountGrid.addEventListener('click', function(e){
+        var btn = e.target.closest('button[data-amount]');
+        if(!btn) return;
+        var amount = Number(btn.dataset.amount) || 0;
+        var all = amountGrid.querySelectorAll('button[data-amount]');
+        for(var i=0;i<all.length;i++){
+          all[i].classList.toggle('active', all[i] === btn);
+        }
+        setTopupAmount(amount);
+      });
+    }
+
+    if(methodList){
+      methodList.addEventListener('click', function(e){
+        var btn = e.target.closest('button[data-method]');
+        if(!btn) return;
+        var method = String(btn.dataset.method || 'PromptPay');
+        var all = methodList.querySelectorAll('button[data-method]');
+        for(var i=0;i<all.length;i++){
+          all[i].classList.toggle('active', all[i] === btn);
+        }
+        setTopupMethod(method);
+      });
+    }
+
+    if(confirmTopupBtn){
+      confirmTopupBtn.addEventListener('click', function(){
+        if(!isLoggedIn){
+          alert('โปรดเข้าสู่ระบบก่อน');
+          showScreen('signin');
+          return;
+        }
+        if(topupSelectedAmount <= 0){
+          alert('กรุณาเลือกจำนวนเงินที่จะเติม');
+          return;
+        }
+
+        walletBalanceValue = walletBalanceValue + topupSelectedAmount;
+        updateAuthUI();
+
+        var now = new Date();
+        var hh = String(now.getHours()).padStart(2,'0');
+        var mm = String(now.getMinutes()).padStart(2,'0');
+        txns.unshift({
+          title: 'Top-up ฿' + topupSelectedAmount,
+          time: hh + ':' + mm,
+          desc: 'Method: ' + topupSelectedMethod + ' • Balance: ฿' + walletBalanceValue
+        });
+
+        renderTxnList();
+        alert('Top-up success (demo)');
+      });
+    }
+
+    if(logoutBtn){
+      logoutBtn.addEventListener('click', function(){
+        isLoggedIn = false;
+        updateAuthUI();
+        alert('Logged out (demo)');
+        showScreen('home');
+      });
+    }
+
+    // Placeholder menus
+    var menuManage = byId('menuManage');
+    var menuBilling = byId('menuBilling');
+    var menuSupport = byId('menuSupport');
+    var menuSecurity = byId('menuSecurity');
+
+    if(menuManage) menuManage.addEventListener('click', function(){ alert('Manage (demo)'); });
+    if(menuBilling) menuBilling.addEventListener('click', function(){ alert('Billing (demo)'); });
+    if(menuSupport) menuSupport.addEventListener('click', function(){ alert('Support (demo)'); });
+    if(menuSecurity) menuSecurity.addEventListener('click', function(){ alert('Security (demo)'); });
 
     // --- Family data (dummy but consistent)
-    const family = {
+    var family = {
       dad: {
-        name: "พ่อ",
+        name: 'พ่อ',
         improvePct: 12,
         series: [62, 64, 66, 67, 69, 71, 74],
-        summary: {
-          bp: 12, glucose: 9, spo2: 3,
-          advice: "โฟกัสการพักผ่อน + เดินเบา ๆ หลังอาหาร 10–15 นาที"
-        },
-        encourage: "สุดยอดเลยพ่อ! ทำต่อเนื่องอีกนิดจะเห็นผลชัดขึ้นนะคะ 💪"
+        summary: { bp: 12, glucose: 9, spo2: 3, advice: 'โฟกัสการพักผ่อน + เดินเบา ๆ หลังอาหาร 10–15 นาที' },
+        encourage: 'สุดยอดเลยพ่อ! ทำต่อเนื่องอีกนิดจะเห็นผลชัดขึ้นนะคะ 💪'
       },
       mom: {
-        name: "แม่",
+        name: 'แม่',
         improvePct: 10,
         series: [60, 62, 63, 65, 67, 70, 73],
-        summary: {
-          bp: 10, glucose: 11, spo2: 2,
-          advice: "คุมหวานได้ดีมาก เพิ่มดื่มน้ำ + นอนให้ครบ 7–8 ชม."
-        },
-        encourage: "แม่ทำได้ดีมากค่ะ 💙 สม่ำเสมอแบบนี้ไปเรื่อย ๆ นะคะ"
+        summary: { bp: 10, glucose: 11, spo2: 2, advice: 'คุมหวานได้ดีมาก เพิ่มดื่มน้ำ + นอนให้ครบ 7–8 ชม.' },
+        encourage: 'แม่ทำได้ดีมากค่ะ 💙 สม่ำเสมอแบบนี้ไปเรื่อย ๆ นะคะ'
       },
       grandma: {
-        name: "ยาย",
+        name: 'ยาย',
         improvePct: 8,
         series: [58, 59, 61, 62, 64, 66, 69],
-        summary: {
-          bp: 8, glucose: 7, spo2: 4,
-          advice: "ทานยาตามเวลา + ขยับตัวเบา ๆ ทุกวันช่วยได้มาก"
-        },
-        encourage: "ยายเก่งมากเลยค่ะ 🌷 ค่อย ๆ ดีขึ้นแบบนี้คือดีที่สุดแล้วนะคะ"
+        summary: { bp: 8, glucose: 7, spo2: 4, advice: 'ทานยาตามเวลา + ขยับตัวเบา ๆ ทุกวันช่วยได้มาก' },
+        encourage: 'ยายเก่งมากเลยค่ะ 🌷 ค่อย ๆ ดีขึ้นแบบนี้คือดีที่สุดแล้วนะคะ'
       }
     };
 
     // --- Active user (selected from Profile)
-    let activeMember = "dad";
-    const activeUserPill = document.getElementById("activeUserPill");
+    var activeMember = 'dad';
+    var activeUserPill = byId('activeUserPill');
+
+    // --- Charts (init only when Chart.js + canvas exist)
+    var homeCanvas = byId('homeTrendChart');
+    var trendCanvas = byId('trendChart');
+    var canChart = typeof window.Chart !== 'undefined';
+
+    var homeTrendChart = null;
+    if(canChart && homeCanvas){
+      homeTrendChart = new Chart(homeCanvas, {
+        type: 'line',
+        data: {
+          labels: ['08:00','10:00','12:00','14:00','16:00','18:00','20:00'],
+          datasets: [{
+            label: 'Health Score',
+            data: family[activeMember].series,
+            borderColor: '#0ea5e9',
+            backgroundColor: 'rgba(14,165,233,0.14)',
+            borderWidth: 2,
+            tension: 0.35,
+            pointRadius: 2,
+            pointBackgroundColor: '#2563eb',
+            fill: true
+          }]
+        },
+        options: {
+          responsive:true,
+          maintainAspectRatio:false,
+          plugins: { legend: { display:false } },
+          scales: {
+            x: { grid:{ display:false }, ticks:{ color:'#5b6b82', font:{ size:10 } } },
+            y: { grid:{ color:'rgba(215,230,248,.9)' }, ticks:{ color:'#86a0c2', font:{ size:10 } } }
+          }
+        }
+      });
+    }
+
+    var trendChart = null;
+    if(canChart && trendCanvas){
+      trendChart = new Chart(trendCanvas, {
+        type: 'line',
+        data: {
+          labels: ['W1','W2','W3','W4','W5','W6','W7'],
+          datasets: [{
+            label: 'Overall Health Score',
+            data: family.dad.series,
+            borderColor: '#2563eb',
+            backgroundColor: 'rgba(37,99,235,0.12)',
+            borderWidth: 2,
+            tension: 0.35,
+            pointRadius: 2,
+            pointBackgroundColor: '#0ea5e9',
+            fill: true
+          }]
+        },
+        options: {
+          responsive:true,
+          maintainAspectRatio:false,
+          plugins: { legend: { display:false } },
+          scales: {
+            x: { grid:{ display:false }, ticks:{ color:'#5b6b82', font:{ size:10 } } },
+            y: { grid:{ color:'rgba(215,230,248,.9)' }, ticks:{ color:'#86a0c2', font:{ size:10 } } }
+          }
+        }
+      });
+    }
 
     function setActiveMember(key){
       if(!family[key]) return;
       activeMember = key;
-      activeUserPill.textContent = "ใช้งาน: " + family[key].name;
-      // update Home chart
-      homeTrendChart.data.datasets[0].data = family[key].series;
-      homeTrendChart.update();
+      if(activeUserPill) activeUserPill.textContent = 'ใช้งาน: ' + family[key].name;
+      if(homeTrendChart){
+        homeTrendChart.data.datasets[0].data = family[key].series;
+        homeTrendChart.update();
+      }
     }
 
-    // --- Home chart
-    const homeTrendChart = new Chart(document.getElementById("homeTrendChart"), {
-      type: "line",
-      data: {
-        labels: ["08:00","10:00","12:00","14:00","16:00","18:00","20:00"],
-        datasets: [{
-          label: "Health Score",
-          data: family[activeMember].series,
-          borderColor: "#0ea5e9",
-          backgroundColor: "rgba(14,165,233,0.14)",
-          borderWidth: 2,
-          tension: 0.35,
-          pointRadius: 2,
-          pointBackgroundColor: "#2563eb",
-          fill: true,
-        }]
-      },
-      options: {
-        responsive:true,
-        maintainAspectRatio:false,
-        plugins: { legend: { display:false } },
-        scales: {
-          x: { grid:{ display:false }, ticks:{ color:"#5b6b82", font:{ size:10 } } },
-          y: { grid:{ color:"rgba(215,230,248,.9)" }, ticks:{ color:"#86a0c2", font:{ size:10 } } }
-        }
-      }
-    });
-
     // --- Trends interactions
-    const trendMemberSeg = document.getElementById("trendMemberSeg");
-    const trendChartTitle = document.getElementById("trendChartTitle");
-    const trendImprovePill = document.getElementById("trendImprovePill");
-    const trendCards = document.getElementById("trendCards");
-    const trendEncourage = document.getElementById("trendEncourage");
-
-    const trendChart = new Chart(document.getElementById("trendChart"), {
-      type: "line",
-      data: {
-        labels: ["W1","W2","W3","W4","W5","W6","W7"],
-        datasets: [{
-          label: "Overall Health Score",
-          data: family.dad.series,
-          borderColor: "#2563eb",
-          backgroundColor: "rgba(37,99,235,0.12)",
-          borderWidth: 2,
-          tension: 0.35,
-          pointRadius: 2,
-          pointBackgroundColor: "#0ea5e9",
-          fill: true,
-        }]
-      },
-      options: {
-        responsive:true,
-        maintainAspectRatio:false,
-        plugins: { legend: { display:false } },
-        scales: {
-          x: { grid:{ display:false }, ticks:{ color:"#5b6b82", font:{ size:10 } } },
-          y: { grid:{ color:"rgba(215,230,248,.9)" }, ticks:{ color:"#86a0c2", font:{ size:10 } } }
-        }
-      }
-    });
+    var trendMemberSeg = byId('trendMemberSeg');
+    var trendChartTitle = byId('trendChartTitle');
+    var trendImprovePill = byId('trendImprovePill');
+    var trendCards = byId('trendCards');
+    var trendEncourage = byId('trendEncourage');
 
     function renderTrendCards(memberKey){
-      const d = family[memberKey];
-      const s = d.summary;
+      var d = family[memberKey];
+      var s = d.summary;
 
-      trendChartTitle.textContent = `Overall Health Score — ${d.name}`;
-      trendImprovePill.textContent = `ดีขึ้น +${d.improvePct}%`;
-      trendEncourage.textContent = d.encourage;
+      if(trendChartTitle) trendChartTitle.textContent = 'Overall Health Score — ' + d.name;
+      if(trendImprovePill) trendImprovePill.textContent = 'ดีขึ้น +' + d.improvePct + '%';
+      if(trendEncourage) trendEncourage.textContent = d.encourage;
 
-      trendCards.innerHTML = `
-        <div class="trendCard">
-          <div class="trendHead">
-            <b>กรอบแนวโน้ม</b>
-            <span class="pill">Improving</span>
-          </div>
-          <div class="trendSmall">
-            ภาพรวม 30 วันล่าสุดของ <b>${d.name}</b> ดีขึ้นอย่างต่อเนื่อง
-            เหมาะกับการ “ทำต่อ” ในรูปแบบเดิม
-          </div>
-          <div class="tags">
-            <span class="tag">BP ดีขึ้น <b>${s.bp}%</b></span>
-            <span class="tag">Glucose ดีขึ้น <b>${s.glucose}%</b></span>
-            <span class="tag">SpO₂ ดีขึ้น <b>${s.spo2}%</b></span>
-          </div>
-        </div>
+      if(trendCards){
+        var html = '';
+        html += '<div class="trendCard">';
+        html += '  <div class="trendHead">';
+        html += '    <b>กรอบแนวโน้ม</b>';
+        html += '    <span class="pill">Improving</span>';
+        html += '  </div>';
+        html += '  <div class="trendSmall">';
+        html += '    ภาพรวม 30 วันล่าสุดของ <b>' + d.name + '</b> ดีขึ้นอย่างต่อเนื่อง เหมาะกับการ “ทำต่อ” ในรูปแบบเดิม';
+        html += '  </div>';
+        html += '  <div class="tags">';
+        html += '    <span class="tag">BP ดีขึ้น <b>' + s.bp + '%</b></span>';
+        html += '    <span class="tag">Glucose ดีขึ้น <b>' + s.glucose + '%</b></span>';
+        html += '    <span class="tag">SpO₂ ดีขึ้น <b>' + s.spo2 + '%</b></span>';
+        html += '  </div>';
+        html += '</div>';
 
-        <div class="trendCard">
-          <div class="trendHead">
-            <b>คำแนะนำจากระบบ</b>
-            <span class="pill">Next step</span>
-          </div>
-          <div class="trendSmall">${s.advice}</div>
-          <div class="trendSmall" style="margin-top:8px;">
-            โฟกัส 1 อย่าง/สัปดาห์ จะทำให้ผลลัพธ์ “ชัด” และ “ยั่งยืน” มากขึ้น
-          </div>
-        </div>
-      `;
+        html += '<div class="trendCard">';
+        html += '  <div class="trendHead">';
+        html += '    <b>คำแนะนำจากระบบ</b>';
+        html += '    <span class="pill">Next step</span>';
+        html += '  </div>';
+        html += '  <div class="trendSmall">' + s.advice + '</div>';
+        html += '  <div class="trendSmall" style="margin-top:8px;">โฟกัส 1 อย่าง/สัปดาห์ จะทำให้ผลลัพธ์ “ชัด” และ “ยั่งยืน” มากขึ้น</div>';
+        html += '</div>';
+
+        trendCards.innerHTML = html;
+      }
     }
 
     function setTrendMember(memberKey){
       if(!family[memberKey]) return;
 
-      [...trendMemberSeg.querySelectorAll("button")].forEach(b =>
-        b.classList.toggle("active", b.dataset.member === memberKey)
-      );
+      if(trendMemberSeg){
+        var buttons = trendMemberSeg.querySelectorAll('button[data-member]');
+        for(var i=0;i<buttons.length;i++){
+          var b = buttons[i];
+          b.classList.toggle('active', b.dataset.member === memberKey);
+        }
+      }
 
-      trendChart.data.datasets[0].data = family[memberKey].series;
-      trendChart.update();
+      if(trendChart){
+        trendChart.data.datasets[0].data = family[memberKey].series;
+        trendChart.update();
+      }
+
       renderTrendCards(memberKey);
     }
 
-    trendMemberSeg.addEventListener("click", (e) => {
-      const btn = e.target.closest("button[data-member]");
-      if(!btn) return;
-      setTrendMember(btn.dataset.member);
-    });
+    if(trendMemberSeg){
+      trendMemberSeg.addEventListener('click', function(e){
+        var btn = e.target.closest('button[data-member]');
+        if(!btn) return;
+        setTrendMember(btn.dataset.member);
+      });
+    }
 
     // --- Profile: select active user
-    const profileGrid = document.getElementById("profileGrid");
-    profileGrid.addEventListener("click", (e) => {
-      const btn = e.target.closest(".personBtn[data-member]");
-      if(!btn) return;
+    var profileGrid = byId('profileGrid');
+    if(profileGrid){
+      profileGrid.addEventListener('click', function(e){
+        var btn = e.target.closest('.personBtn[data-member]');
+        if(!btn) return;
 
-      const key = btn.dataset.member;
-      [...profileGrid.querySelectorAll(".personBtn[data-member]")].forEach(b =>
-        b.classList.toggle("active", b.dataset.member === key)
-      );
+        var key = btn.dataset.member;
+        var all = profileGrid.querySelectorAll('.personBtn[data-member]');
+        for(var i=0;i<all.length;i++){
+          var b = all[i];
+          b.classList.toggle('active', b.dataset.member === key);
+        }
 
-      setActiveMember(key);
-    });
+        setActiveMember(key);
+      });
+    }
+
+    // --- Tests (basic sanity checks)
+    (function runTests(){
+      var required = [
+        'headerTitle','headerSub','nav',
+        'screen-home','screen-alerts','screen-trends','screen-profile','screen-device','screen-signin','screen-account','screen-topup','screen-settings',
+        'activeUserPill','trendMemberSeg','trendCards',
+        'emailInput','passwordInput','emailLoginBtn',
+        'walletBalance','topupBalance','goTopupBtn','confirmTopupBtn'
+      ];
+
+      var results = [];
+      for(var i=0;i<required.length;i++){
+        var id = required[i];
+        results.push({ test: 'exists #' + id, pass: !!byId(id) });
+      }
+
+      function safeCall(name, fn){
+        try{ fn(); results.push({ test:name, pass:true }); }
+        catch(e){ results.push({ test:name, pass:false, error: String(e) }); }
+      }
+
+      safeCall("showScreen('home')", function(){ showScreen('home'); });
+      safeCall("showScreen('alerts')", function(){ showScreen('alerts'); });
+      safeCall("showScreen('trends')", function(){ showScreen('trends'); });
+      safeCall("showScreen('profile')", function(){ showScreen('profile'); });
+      safeCall("showScreen('device')", function(){ showScreen('device'); });
+      safeCall("showScreen('signin')", function(){ showScreen('signin'); });
+      safeCall("showScreen('settings')", function(){ showScreen('settings'); });
+      safeCall("showScreen('account')", function(){ showScreen('account'); });
+      safeCall("showScreen('topup')", function(){ showScreen('topup'); });
+
+      safeCall("handleEmailLogin invalid", function(){
+        var e = byId('emailInput');
+        var p = byId('passwordInput');
+        if(e) e.value = 'wrong';
+        if(p) p.value = 'wrong';
+        handleEmailLogin();
+      });
+
+      safeCall("handleEmailLogin valid", function(){
+        var e2 = byId('emailInput');
+        var p2 = byId('passwordInput');
+        if(e2) e2.value = 'test';
+        if(p2) p2.value = 'test';
+        handleEmailLogin();
+      });
+
+      // Auth tab test (only if signin screen exists)
+      safeCall("setAuthPane('email')", function(){ setAuthPane('email'); });
+      safeCall("setAuthPane('register')", function(){ setAuthPane('register'); });
+
+      console.table(results);
+    })();
 
     // init
+    updateAuthUI();
     setActiveMember(activeMember);
-    setTrendMember("dad");
+    setTrendMember('dad');
   </script>
 </body>
 </html>
