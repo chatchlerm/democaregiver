@@ -972,7 +972,6 @@
         </div>
 
         <button class="primaryBtn" id="confirmTopupBtn" type="button" style="margin-top:12px;">ยืนยัน Top-up</button>
-
         <div class="txnList" id="txnList">
           <div class="txnItem">
             <div class="txnTop"><b>Top-up</b><span>ตัวอย่าง</span></div>
@@ -988,7 +987,7 @@
         <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
           <div>
             <b>Device</b>
-            <div class="muted" style="margin-top:6px;font-size:12px;">อุปกรณ์ที่เชื่อมต่อ </div>
+            <div class="muted" style="margin-top:6px;font-size:12px;">อุปกรณ์ที่เชื่อมต่อ</div>
           </div>
           <span class="pill">Connected</span>
         </div>
@@ -1759,7 +1758,19 @@
     }
 
     // --- Tests (basic sanity checks)
+    // IMPORTANT: tests should not affect the initial landing screen in production.
+    // Run tests only when URL contains ?debug=1
     (function runTests(){
+      var search = String(window.location && window.location.search ? window.location.search : '');
+      var shouldRun = search.indexOf('debug=1') !== -1;
+      if(!shouldRun) return;
+
+      var prevScreen = currentScreen;
+      var prevLogged = isLoggedIn;
+      var prevName = loggedInName;
+      var prevBalance = walletBalanceValue;
+      var prevStack = navStack.slice();
+
       var required = [
         'headerTitle','headerSub','nav',
         'screen-home','screen-alerts','screen-trends','screen-profile','screen-device','screen-signin','screen-account','screen-topup','screen-settings',
@@ -1779,44 +1790,49 @@
         catch(e){ results.push({ test:name, pass:false, error: String(e) }); }
       }
 
-      safeCall("showScreen('home')", function(){ showScreen('home'); });
-      safeCall("showScreen('alerts')", function(){ showScreen('alerts'); });
-      safeCall("showScreen('trends')", function(){ showScreen('trends'); });
-      safeCall("showScreen('profile')", function(){ showScreen('profile'); });
-      safeCall("showScreen('device')", function(){ showScreen('device'); });
-      safeCall("showScreen('signin')", function(){ showScreen('signin'); });
-      safeCall("showScreen('settings')", function(){ showScreen('settings'); });
-      safeCall("showScreen('account')", function(){ showScreen('account'); });
-      safeCall("showScreen('topup')", function(){ showScreen('topup'); });
+      // Screen navigation should not throw.
+      safeCall("showScreen('home')", function(){ showScreen('home', true); });
+      safeCall("showScreen('alerts')", function(){ showScreen('alerts', true); });
+      safeCall("showScreen('trends')", function(){ showScreen('trends', true); });
+      safeCall("showScreen('profile')", function(){ showScreen('profile', true); });
+      safeCall("showScreen('device')", function(){ showScreen('device', true); });
+      safeCall("showScreen('signin')", function(){ showScreen('signin', true); });
+      safeCall("showScreen('settings')", function(){ showScreen('settings', true); });
+      safeCall("showScreen('account')", function(){ showScreen('account', true); });
+      safeCall("showScreen('topup')", function(){ showScreen('topup', true); });
 
-      safeCall("handleEmailLogin invalid", function(){
-        var e = byId('emailInput');
-        var p = byId('passwordInput');
-        if(e) e.value = 'wrong';
-        if(p) p.value = 'wrong';
-        handleEmailLogin();
-      });
-
-      safeCall("handleEmailLogin valid", function(){
-        var e2 = byId('emailInput');
-        var p2 = byId('passwordInput');
-        if(e2) e2.value = 'test';
-        if(p2) p2.value = 'test';
-        handleEmailLogin();
-      });
-
-      // Auth tab test (only if signin screen exists)
+      // Auth tabs should not throw.
       safeCall("setAuthPane('email')", function(){ setAuthPane('email'); });
       safeCall("setAuthPane('register')", function(){ setAuthPane('register'); });
+
+      // Restore state so tests don't change what users see.
+      isLoggedIn = prevLogged;
+      loggedInName = prevName;
+      walletBalanceValue = prevBalance;
+      navStack = prevStack;
+      updateAuthUI();
+      showScreen(prevScreen || 'home', true);
 
       console.table(results);
     })();
 
     // init
+    // Landing screen: default to Home. Allow deep-link via URL hash (e.g. #signin, #device)
+    function initFromHash(){
+      var h = String(window.location && window.location.hash ? window.location.hash : '').replace('#','');
+      if(h && screens[h]){
+        showScreen(h, true);
+        return;
+      }
+      showScreen('home', true);
+    }
+
+    window.addEventListener('hashchange', function(){ initFromHash(); });
+
     updateAuthUI();
+    initFromHash();
     setActiveMember(activeMember);
     setTrendMember('dad');
   </script>
 </body>
 </html>
-
