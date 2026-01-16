@@ -307,6 +307,94 @@
     .settingsSub{ display:block; margin-top:2px; font-size:11px; color:var(--muted); }
     .settingsArrow{ color:#6b86a8; font-size:18px; font-weight:900; }
 
+    /* Device */
+    .deviceGrid{
+      margin-top:12px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      background:linear-gradient(180deg,#fff,var(--soft));
+      box-shadow: 0 10px 24px rgba(11,18,32,.06);
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .deviceCell{
+      padding:10px 8px;
+      min-height:84px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      text-align:center;
+      cursor:pointer;
+      user-select:none;
+      background:transparent;
+      border:0;
+      color:#274061;
+    }
+    .deviceCell:active{ transform: translateY(1px); }
+    .deviceCell{ border-right:1px solid rgba(215,230,248,.9); border-bottom:1px solid rgba(215,230,248,.9); }
+    .deviceCell:nth-child(4n){ border-right:0; }
+    .deviceCell:nth-last-child(-n+4){ border-bottom:0; }
+
+    .devImg{
+      width:38px;height:38px;
+      border-radius:14px;
+      border:1px dashed rgba(14,165,233,.35);
+      background:#fff;
+      display:grid;
+      place-items:center;
+      box-shadow: 0 10px 22px rgba(11,18,32,.05);
+      font-size:18px;
+      flex:0 0 auto;
+    }
+    .devLbl{ font-size:10px; font-weight:900; color:#2b4769; line-height:1.2; }
+    .devSub{ font-size:10px; color:var(--muted); line-height:1.2; }
+
+    .deviceList{ display:grid; gap:10px; margin-top:12px; }
+    .deviceRow{
+      width:100%;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg,#fff,var(--soft));
+      cursor:pointer;
+      text-align:left;
+      box-shadow: 0 10px 20px rgba(11,18,32,.06);
+    }
+    .deviceRow:active{ transform: translateY(1px); }
+    .deviceThumb{
+      width:48px;height:48px;
+      border-radius:16px;
+      border:1px dashed rgba(14,165,233,.35);
+      background:#fff;
+      display:grid;
+      place-items:center;
+      box-shadow: 0 10px 22px rgba(11,18,32,.05);
+      font-size:20px;
+      flex:0 0 auto;
+    }
+    .deviceMain{ font-weight:900; font-size:13px; }
+    .deviceMeta{ margin-top:3px; font-size:11px; color:var(--muted); line-height:1.35; }
+    .deviceBadges{ margin-top:8px; display:flex; flex-wrap:wrap; gap:8px; }
+    .deviceBadge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: var(--accent-soft);
+      border:1px solid rgba(14,165,233,.28);
+      color: var(--accent-2);
+      font-size:11px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
     /* Auth (Sign in) */
     .authHero{ margin-top:8px; }
     .authHero b{ font-size:14px; }
@@ -1146,12 +1234,125 @@
       </div>
     </div>
 
-    <!-- DEVICE (placeholder) -->
+    <!-- DEVICE -->
     <div id="screen-device" class="hide">
       <div class="card" style="padding:14px;">
         <b>Device</b>
-        <div class="muted" style="margin-top:6px;font-size:12px;">อุปกรณ์ที่เชื่อมต่อ (ตัวอย่าง)</div>
-        <div class="authNote">* หน้านี้เป็น placeholder (ยังไม่ได้จัด UI เพิ่มเติมในรอบนี้)</div>
+        <div class="muted" style="margin-top:6px;font-size:12px;">อุปกรณ์ที่เชื่อมต่อ </div>
+
+        <!-- 2 rows x 4 slots (grid line) -->
+        <div class="deviceGrid" id="deviceGrid" aria-label="Device slots">
+          <button class="deviceCell" type="button" data-device="bp">
+            <div class="devImg" aria-hidden="true">❤️</div>
+            <div>
+              <div class="devLbl">BP Monitor</div>
+              <div class="devSub">Connected</div>
+            </div>
+          </button>
+          <button class="deviceCell" type="button" data-device="glucose">
+            <div class="devImg" aria-hidden="true">💧</div>
+            <div>
+              <div class="devLbl">Glucose</div>
+              <div class="devSub">Connected</div>
+            </div>
+          </button>
+          <button class="deviceCell" type="button" data-device="temp">
+            <div class="devImg" aria-hidden="true">🌡️</div>
+            <div>
+              <div class="devLbl">Thermometer</div>
+              <div class="devSub">Connected</div>
+            </div>
+          </button>
+          <button class="deviceCell" type="button" data-device="spo2">
+            <div class="devImg" aria-hidden="true">📈</div>
+            <div>
+              <div class="devLbl">Pulse Oxi</div>
+              <div class="devSub">Connected</div>
+            </div>
+          </button>
+
+          <button class="deviceCell" type="button" data-device="scale">
+            <div class="devImg" aria-hidden="true">⚖️</div>
+            <div>
+              <div class="devLbl">Scale</div>
+              <div class="devSub">Available</div>
+            </div>
+          </button>
+          <button class="deviceCell" type="button" data-device="ecg">
+            <div class="devImg" aria-hidden="true">🫀</div>
+            <div>
+              <div class="devLbl">ECG</div>
+              <div class="devSub">Available</div>
+            </div>
+          </button>
+          <button class="deviceCell" type="button" data-device="add1">
+            <div class="devImg" aria-hidden="true">＋</div>
+            <div>
+              <div class="devLbl">Add</div>
+              <div class="devSub">New device</div>
+            </div>
+          </button>
+          <button class="deviceCell" type="button" data-device="add2">
+            <div class="devImg" aria-hidden="true">＋</div>
+            <div>
+              <div class="devLbl">Add</div>
+              <div class="devSub">New device</div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Row style like Profile (with image frame) -->
+        <div class="deviceList" id="deviceList" aria-label="Device list">
+          <button class="deviceRow" type="button" data-device="bp">
+            <div class="deviceThumb" aria-hidden="true">🖼️</div>
+            <div style="flex:1; min-width:0;">
+              <div class="deviceMain">Blood Pressure Monitor</div>
+              <div class="deviceMeta">สถานะ: Connected • อัปเดตล่าสุด: วันนี้ 08:12</div>
+              <div class="deviceBadges">
+                <span class="deviceBadge">Battery <b>82%</b></span>
+                <span class="deviceBadge">Sync <b>On</b></span>
+              </div>
+            </div>
+            <span class="settingsArrow">›</span>
+          </button>
+
+          <button class="deviceRow" type="button" data-device="glucose">
+            <div class="deviceThumb" aria-hidden="true">🖼️</div>
+            <div style="flex:1; min-width:0;">
+              <div class="deviceMain">Blood Glucose Meter</div>
+              <div class="deviceMeta">สถานะ: Connected • อัปเดตล่าสุด: เมื่อวาน 13:45</div>
+              <div class="deviceBadges">
+                <span class="deviceBadge">Battery <b>61%</b></span>
+                <span class="deviceBadge">Sync <b>On</b></span>
+              </div>
+            </div>
+            <span class="settingsArrow">›</span>
+          </button>
+
+          <button class="deviceRow" type="button" data-device="spo2">
+            <div class="deviceThumb" aria-hidden="true">🖼️</div>
+            <div style="flex:1; min-width:0;">
+              <div class="deviceMain">Pulse Oximeter (SpO₂)</div>
+              <div class="deviceMeta">สถานะ: Connected • อัปเดตล่าสุด: วันนี้ 20:00</div>
+              <div class="deviceBadges">
+                <span class="deviceBadge">Battery <b>74%</b></span>
+                <span class="deviceBadge">Sync <b>On</b></span>
+              </div>
+            </div>
+            <span class="settingsArrow">›</span>
+          </button>
+
+          <button class="deviceRow" type="button" data-device="add">
+            <div class="deviceThumb" aria-hidden="true">＋</div>
+            <div style="flex:1; min-width:0;">
+              <div class="deviceMain">Add new device</div>
+              <div class="deviceMeta">เพิ่มอุปกรณ์ใหม่ (เดโม UI)</div>
+            </div>
+            <span class="settingsArrow">›</span>
+          </button>
+        </div>
+
+        <div class="authNote">* หน้านี้เป็นเดโม UI: กรอบรูป (🖼️) เว้นไว้สำหรับใส่ไฟล์รูปไอคอน/รูปอุปกรณ์</div>
       </div>
     </div>
 
@@ -1936,6 +2137,24 @@
     if(menuBilling) menuBilling.addEventListener('click', function(){ uiAlert('Billing (demo)', { type:'info' }); });
     if(menuSupport) menuSupport.addEventListener('click', function(){ uiAlert('Support (demo)', { type:'info' }); });
     if(menuSecurity) menuSecurity.addEventListener('click', function(){ uiAlert('Security (demo)', { type:'info' }); });
+
+    // Device interactions (demo)
+    var deviceGrid = byId('deviceGrid');
+    var deviceList = byId('deviceList');
+
+    function deviceClickHandler(e){
+      var btn = e.target.closest('button[data-device]');
+      if(!btn) return;
+      var key = String(btn.dataset.device || '');
+      if(key.indexOf('add') === 0){
+        uiAlert('Demo: เพิ่มอุปกรณ์ (ยังไม่เชื่อมระบบจริง)', { type:'info', title:'Device' });
+        return;
+      }
+      uiAlert('Demo: เปิดรายละเอียดอุปกรณ์ — ' + key, { type:'info', title:'Device' });
+    }
+
+    if(deviceGrid) deviceGrid.addEventListener('click', deviceClickHandler);
+    if(deviceList) deviceList.addEventListener('click', deviceClickHandler);
 
     // --- Family data
     var family = {
