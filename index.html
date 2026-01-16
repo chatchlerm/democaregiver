@@ -383,6 +383,48 @@
     .walletMeta{ margin-top:6px; font-size:12px; color:#2b4769; }
 
     .menuGrid{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:12px; }
+
+    /* Packages */
+    .packageWrap{ margin-top:12px; }
+    .packageHead{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+    .packageHead b{ font-size:14px; }
+    .packageGrid{ display:grid; gap:10px; margin-top:12px; }
+    .packageBtn{
+      width:100%;
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg,#fff,var(--soft));
+      cursor:pointer;
+      text-align:left;
+      box-shadow: 0 10px 20px rgba(11,18,32,.06);
+    }
+    .packageBtn:active{ transform: translateY(1px); }
+    .packageBtn.active{
+      outline: 2px solid rgba(34,197,94,.35);
+      border-color: rgba(34,197,94,.45);
+      background: linear-gradient(180deg, #fff, rgba(232,244,255,.95));
+    }
+    .packageName{ font-weight:900; font-size:13px; }
+    .packageSub{ margin-top:3px; font-size:11px; color:var(--muted); line-height:1.35; }
+    .packageMeta{ margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; }
+    .packageChip{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: var(--accent-soft);
+      border:1px solid rgba(14,165,233,.28);
+      color: var(--accent-2);
+      font-size:11px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .packageChip b{ color: var(--accent); }
     .menuBtn{
       border:1px solid var(--border);
       border-radius:16px;
@@ -464,6 +506,7 @@
 
     /* Logged indicator on top right */
     #signInBtn.logged{ position:relative; }
+    /* default: green dot */
     #signInBtn.logged:after{
       content:"";
       position:absolute;
@@ -473,6 +516,22 @@
       background: #22c55e;
       border:2px solid #fff;
       box-shadow: 0 10px 20px rgba(11,18,32,.10);
+    }
+    /* if user purchased a package: show label badge (green) */
+    #signInBtn.logged.hasplan:after{
+      content: attr(data-plan);
+      width:auto; height:auto;
+      padding:2px 7px;
+      right:6px; top:6px;
+      border-radius:999px;
+      background:#22c55e;
+      color:#ffffff;
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:.2px;
+      border:2px solid #fff;
+      box-shadow: 0 10px 20px rgba(11,18,32,.10);
+      line-height:1.2;
     }
 
     /* Device */
@@ -789,7 +848,7 @@
               <input class="input" id="passwordInput" type="password" placeholder="เช่น test" autocomplete="current-password" />
             </div>
             <button class="authPrimary" id="emailLoginBtn" type="button">เข้าสู่ระบบด้วยอีเมล</button>
-            <div class="authNote">*Demo Login: ใส่ Email = <b>test</b> และ Password = <b>test</b> เพื่อเข้าสู่หน้าเมนูหลังล็อกอิน</div>
+            <div class="authNote">* เดโมล็อกอิน: ใส่ Email = <b>test</b> และ Password = <b>test</b> เพื่อเข้าสู่หน้าเมนูหลังล็อกอิน</div>
           </div>
 
           <div class="authPane hide" id="authPaneRegister">
@@ -806,7 +865,7 @@
               <input class="input" type="password" placeholder="ตั้งรหัสผ่าน" autocomplete="new-password" />
             </div>
             <button class="authPrimary" id="registerBtn" type="button">สร้างบัญชีใหม่</button>
-            <div class="authNote">*Demo UI: ปุ่มจะโชว์ alert แทนการสมัครจริง</div>
+            <div class="authNote">* เดโม UI: ปุ่มจะโชว์ alert แทนการสมัครจริง</div>
           </div>
         </div>
 
@@ -851,19 +910,21 @@
             <b>Account</b>
             <div class="muted">ยินดีต้อนรับ <b id="accountUserName">test</b></div>
           </div>
-          <span class="pill">Logged in</span>
+          <span class="pill" id="accountStatusPill">Logged in</span>
         </div>
 
+        <!-- Wallet Balance (keep in Account) -->
         <div class="walletCard">
           <div class="walletTop">
             <div>
-              <div class="muted" style="font-size:11px; font-weight:900;">Wallet Balance</div>
+              <div class="muted" style="font-size:12px; font-weight:900;">Wallet Balance</div>
               <div class="amt" id="walletBalance">฿120</div>
+              <div class="unit">THB</div>
             </div>
-            <div class="unit">THB</div>
+            <div class="menuIco" aria-hidden="true">👛</div>
           </div>
-          <div class="walletMeta">เติมเงินเพื่อปลดล็อกฟีเจอร์ และจัดการบริการต่าง ๆ</div>
-          <button class="primaryBtn" id="goTopupBtn" type="button" style="margin-top:12px;">Top-up</button>
+          <div class="walletMeta">เติมเงิน/ซื้อแพ็คเกจได้จากเมนูด้านล่าง</div>
+          <button class="primaryBtn" id="goTopupBtn" type="button" style="margin-top:12px;">ไปหน้า Top-up</button>
         </div>
 
         <div class="menuGrid" aria-label="Account menus">
@@ -872,6 +933,14 @@
             <div>
               <div class="menuMain">Top-up</div>
               <div class="menuSub">เติมเงินเข้ากระเป๋า</div>
+            </div>
+          </button>
+
+          <button class="menuBtn" id="menuPackage" type="button">
+            <div class="menuIco">📦</div>
+            <div>
+              <div class="menuMain">Package</div>
+              <div class="menuSub">เลือกซื้อแพ็คเกจ</div>
             </div>
           </button>
 
@@ -914,6 +983,77 @@
               <div class="menuSub">ออกจากระบบ</div>
             </div>
           </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACKAGE (purchase) -->
+    <div id="screen-package" class="hide">
+      <div class="card" style="padding:14px;">
+        <div class="accountHeader">
+          <div>
+            <b>Package</b>
+            <div class="muted">เลือกแพ็คเกจที่เหมาะกับการใช้งาน</div>
+          </div>
+          <span class="pill" id="currentPlanPill">Plan: None</span>
+        </div>
+
+        <div class="walletCard" style="margin-top:12px;">
+          <div class="walletTop">
+            <div>
+              <div class="muted" style="font-size:12px; font-weight:900;">Wallet Balance</div>
+              <div class="amt" id="packageWalletBalance">฿120</div>
+              <div class="unit">THB</div>
+            </div>
+            <div class="menuIco" aria-hidden="true">👛</div>
+          </div>
+          <div class="walletMeta">* เดโม: ซื้อแพ็คเกจจะหักเงินจาก Wallet</div>
+          <button class="primaryBtn" id="packageGoTopupBtn" type="button" style="margin-top:12px;">เติมเงิน (Top-up)</button>
+        </div>
+
+        <div class="packageWrap" style="margin-top:12px;">
+          <div class="packageGrid" id="packageGrid" aria-label="Package list">
+            <button class="packageBtn" type="button" data-plan="Eco" data-price="199" data-users="1">
+              <div class="menuIco" aria-hidden="true">🌿</div>
+              <div style="flex:1; min-width:0;">
+                <div class="packageName">Eco Set</div>
+                <div class="packageSub">เหมาะกับ 1 คน</div>
+                <div class="packageMeta">
+                  <span class="packageChip">ราคา <b>฿199</b></span>
+                  <span class="packageChip">ผู้ใช้ <b>1</b></span>
+                </div>
+              </div>
+              <span class="settingsArrow">›</span>
+            </button>
+
+            <button class="packageBtn" type="button" data-plan="Duo" data-price="299" data-users="2">
+              <div class="menuIco" aria-hidden="true">🤝</div>
+              <div style="flex:1; min-width:0;">
+                <div class="packageName">Duo Set</div>
+                <div class="packageSub">เหมาะกับ 2 คน</div>
+                <div class="packageMeta">
+                  <span class="packageChip">ราคา <b>฿299</b></span>
+                  <span class="packageChip">ผู้ใช้ <b>2</b></span>
+                </div>
+              </div>
+              <span class="settingsArrow">›</span>
+            </button>
+
+            <button class="packageBtn" type="button" data-plan="Family" data-price="399" data-users="4">
+              <div class="menuIco" aria-hidden="true">👨‍👩‍👧‍👦</div>
+              <div style="flex:1; min-width:0;">
+                <div class="packageName">Family Set</div>
+                <div class="packageSub">เหมาะกับ 4 คน</div>
+                <div class="packageMeta">
+                  <span class="packageChip">ราคา <b>฿399</b></span>
+                  <span class="packageChip">ผู้ใช้ <b>4</b></span>
+                </div>
+              </div>
+              <span class="settingsArrow">›</span>
+            </button>
+          </div>
+
+          <div class="authNote">* ราคาและแพ็คเกจตัวอย่างเท่านั้น</div>
         </div>
       </div>
     </div>
@@ -972,7 +1112,7 @@
         </div>
 
         <button class="primaryBtn" id="confirmTopupBtn" type="button" style="margin-top:12px;">ยืนยัน Top-up</button>
-        <div class="authNote">*Demo UI: จะเพิ่มยอดเงินใน Wallet และบันทึกประวัติให้ดู</div>
+        <div class="authNote">* เดโม UI: จะเพิ่มยอดเงินใน Wallet และบันทึกประวัติให้ดู</div>
 
         <div class="txnList" id="txnList">
           <div class="txnItem">
@@ -1268,6 +1408,7 @@
       device: byId('screen-device'),
       signin: byId('screen-signin'),
       account: byId('screen-account'),
+      package: byId('screen-package'),
       topup: byId('screen-topup'),
       settings: byId('screen-settings')
     };
@@ -1282,6 +1423,7 @@
     var topupSelectedAmount = 0;
     var topupSelectedMethod = 'PromptPay';
     var txns = [];
+    var purchasedPlan = ''; // Eco / Duo / Family (demo)
 
     function showScreen(key, noHistory){
       if(!noHistory && key !== currentScreen){
@@ -1304,6 +1446,7 @@
           (key === 'device') ? 'Device' :
           (key === 'signin') ? 'Sign in' :
           (key === 'account') ? 'Account' :
+          (key === 'package') ? 'Package' :
           (key === 'topup') ? 'Top-up' : 'Settings';
       }
 
@@ -1316,6 +1459,7 @@
           (key === 'device') ? 'อุปกรณ์ที่เชื่อมต่อ' :
           (key === 'signin') ? 'เข้าสู่ระบบ' :
           (key === 'account') ? 'บัญชี' :
+          (key === 'package') ? 'ซื้อแพ็คเกจ' :
           (key === 'topup') ? 'เติมเงิน' : 'ตั้งค่า';
       }
 
@@ -1346,15 +1490,47 @@
       if(signInBtn){
         if(isLoggedIn) signInBtn.classList.add('logged');
         else signInBtn.classList.remove('logged');
+
+        // plan badge on Sign in button (green)
+        if(isLoggedIn && purchasedPlan){
+          signInBtn.classList.add('hasplan');
+          signInBtn.setAttribute('data-plan', purchasedPlan);
+        } else {
+          signInBtn.classList.remove('hasplan');
+          signInBtn.removeAttribute('data-plan');
+        }
       }
 
       var accountUserName = byId('accountUserName');
       var walletBalance = byId('walletBalance');
       var topupBalance = byId('topupBalance');
+      var accountStatusPill = byId('accountStatusPill');
+      var currentPlanPill = byId('currentPlanPill');
+      var packageWalletBalance = byId('packageWalletBalance');
 
       if(accountUserName) accountUserName.textContent = loggedInName;
       if(walletBalance) walletBalance.textContent = '฿' + walletBalanceValue;
       if(topupBalance) topupBalance.textContent = '฿' + walletBalanceValue;
+      if(packageWalletBalance) packageWalletBalance.textContent = '฿' + walletBalanceValue;
+
+      if(accountStatusPill){
+        accountStatusPill.textContent = purchasedPlan ? ('Plan: ' + purchasedPlan) : 'Logged in';
+      }
+      if(currentPlanPill){
+        currentPlanPill.textContent = purchasedPlan ? ('Plan: ' + purchasedPlan) : 'Plan: None';
+      }
+
+      updatePackageUI();
+    }
+
+    function updatePackageUI(){
+      var grid = byId('packageGrid');
+      if(!grid) return;
+      var btns = grid.querySelectorAll('button[data-plan]');
+      for(var i=0;i<btns.length;i++){
+        var b = btns[i];
+        b.classList.toggle('active', purchasedPlan && b.dataset.plan === purchasedPlan);
+      }
     }
 
     if(signInBtn){
@@ -1427,7 +1603,7 @@
         return true;
       }
 
-      alert('Email/Password ไม่ถูกต้อง (Demo ID: test / test)');
+      alert('Email/Password ไม่ถูกต้อง (เดโม: test / test)');
       return false;
     }
 
@@ -1437,9 +1613,62 @@
     if(facebookLoginBtn) facebookLoginBtn.addEventListener('click', function(){ demoAuth('Facebook login'); });
     if(googleLoginBtn) googleLoginBtn.addEventListener('click', function(){ demoAuth('Google login'); });
 
+    // --- Purchase package (with wallet deduction)
+    function handlePurchase(plan, price){
+      if(!isLoggedIn){
+        alert('โปรดเข้าสู่ระบบก่อน');
+        showScreen('signin');
+        return;
+      }
+
+      var p = Number(price) || 0;
+      if(p <= 0){
+        alert('ราคาไม่ถูกต้อง');
+        return;
+      }
+
+      if(walletBalanceValue < p){
+        alert('ยอดเงินไม่พอ กรุณาเติมเงินก่อน (Wallet: ฿' + walletBalanceValue + ')');
+        gotoTopup();
+        return;
+      }
+
+      walletBalanceValue = walletBalanceValue - p;
+      purchasedPlan = plan;
+      updateAuthUI();
+
+      var now = new Date();
+      var hh = String(now.getHours()).padStart(2,'0');
+      var mm = String(now.getMinutes()).padStart(2,'0');
+      txns.unshift({
+        title: 'Purchase ' + plan,
+        time: hh + ':' + mm,
+        desc: 'Paid: ฿' + p + ' • Balance: ฿' + walletBalanceValue
+      });
+
+      renderTxnList();
+      alert('ซื้อแพ็คเกจสำเร็จ (demo): ' + plan);
+    }
+
+    function bindPackageGrid(){
+      var grid = byId('packageGrid');
+      if(!grid) return;
+      grid.addEventListener('click', function(e){
+        var btn = e.target.closest('button[data-plan]');
+        if(!btn) return;
+        var plan = String(btn.dataset.plan || '');
+        var price = String(btn.dataset.price || '');
+        handlePurchase(plan, price);
+      });
+    }
+
+    bindPackageGrid();
+
     // --- Account & Top-up actions
     var goTopupBtn = byId('goTopupBtn');
     var menuTopup = byId('menuTopup');
+    var menuPackage = byId('menuPackage');
+    var packageGoTopupBtn = byId('packageGoTopupBtn');
     var confirmTopupBtn = byId('confirmTopupBtn');
     var amountGrid = byId('amountGrid');
     var methodList = byId('methodList');
@@ -1489,6 +1718,15 @@
 
     if(goTopupBtn) goTopupBtn.addEventListener('click', function(){ gotoTopup(); });
     if(menuTopup) menuTopup.addEventListener('click', function(){ gotoTopup(); });
+    if(packageGoTopupBtn) packageGoTopupBtn.addEventListener('click', function(){ gotoTopup(); });
+
+    if(menuPackage){
+      menuPackage.addEventListener('click', function(){
+        if(!isLoggedIn){ showScreen('signin'); return; }
+        updateAuthUI();
+        showScreen('package');
+      });
+    }
 
     if(amountGrid){
       amountGrid.addEventListener('click', function(e){
@@ -1548,6 +1786,7 @@
     if(logoutBtn){
       logoutBtn.addEventListener('click', function(){
         isLoggedIn = false;
+        purchasedPlan = '';
         updateAuthUI();
         alert('Logged out (demo)');
         showScreen('home');
@@ -1775,10 +2014,11 @@
 
       var required = [
         'headerTitle','headerSub','nav',
-        'screen-home','screen-alerts','screen-trends','screen-profile','screen-device','screen-signin','screen-account','screen-topup','screen-settings',
+        'screen-home','screen-alerts','screen-trends','screen-profile','screen-device','screen-signin','screen-account','screen-package','screen-topup','screen-settings',
         'activeUserPill','trendMemberSeg','trendCards',
         'emailInput','passwordInput','emailLoginBtn',
-        'walletBalance','topupBalance','goTopupBtn','confirmTopupBtn'
+        'walletBalance','topupBalance','goTopupBtn','confirmTopupBtn',
+        'menuPackage','packageGrid','currentPlanPill','packageWalletBalance','packageGoTopupBtn'
       ];
 
       var results = [];
@@ -1806,6 +2046,14 @@
       // Auth tabs should not throw.
       safeCall("setAuthPane('email')", function(){ setAuthPane('email'); });
       safeCall("setAuthPane('register')", function(){ setAuthPane('register'); });
+
+      safeCall("purchase Eco (demo)", function(){
+        // simulate: logged in + purchase
+        isLoggedIn = true;
+        purchasedPlan = '';
+        updateAuthUI();
+        handlePurchase('Eco','199');
+      });
 
       // Restore state so tests don't change what users see.
       isLoggedIn = prevLogged;
